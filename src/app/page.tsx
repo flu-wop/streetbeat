@@ -35,13 +35,6 @@ const CREDITS = [
   { role: "Released",     name: "2025" },
 ]
 
-const FEATURES = [
-  { icon: Monitor,   text: "HD streaming — watch on any device" },
-  { icon: Captions,  text: "Closed captions included" },
-  { icon: Shield,    text: "Supports independent New Orleans film" },
-  { icon: Award,     text: "Own forever — no subscription required" },
-]
-
 export default function HomePage() {
   return (
     <>
@@ -169,28 +162,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════ */}
-      {/* 2. PRICE STRIP — immediate purchase CTA after hero               */}
-      {/* ════════════════════════════════════════════════════════════════ */}
-      <div className="border-y border-studio-border/50 bg-studio-charcoal py-5 px-6">
-        <div className="mx-auto max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-6">
-            {FEATURES.map(({ icon: Icon, text }) => (
-              <div key={text} className="flex items-center gap-2 text-mist text-xs">
-                <Icon className="w-3.5 h-3.5 text-gold/60 shrink-0" />
-                <span>{text}</span>
-              </div>
-            ))}
-          </div>
-          <Link
-            href="/watch"
-            className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-gold text-studio-black text-[12px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors whitespace-nowrap"
-          >
-            <ShoppingCart className="w-3.5 h-3.5" />
-            Own for $5.99
-          </Link>
-        </div>
-      </div>
+
 
       {/* ════════════════════════════════════════════════════════════════ */}
       {/* 3. TRAILER EMBED                                                 */}
@@ -423,14 +395,7 @@ export default function HomePage() {
           <p className="text-mist text-sm mt-6 tracking-wide">
             — Doug Belote, Host &nbsp;·&nbsp; <span className="text-mist/40 italic text-xs">Placeholder — replace with real quote from film</span>
           </p>
-          <Separator className="w-10 bg-gold/30 mx-auto mt-8 mb-8" />
-          <Link
-            href="/watch"
-            className="inline-flex items-center gap-2 px-6 py-2.5 border border-gold text-gold text-sm font-medium hover:bg-gold hover:text-studio-black transition-all rounded-sm"
-          >
-            <ShoppingCart className="w-4 h-4" />
-            Own the film for $5.99
-          </Link>
+          <Separator className="w-10 bg-gold/30 mx-auto mt-8" />
         </div>
       </section>
 
