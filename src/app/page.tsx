@@ -142,7 +142,7 @@ export default function HomePage() {
                 className="inline-flex items-center justify-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
               >
                 <ShoppingCart className="w-4 h-4" />
-                Purchase for $5.99 — Own Forever
+                Purchase for $5.99
               </Link>
               {/* Secondary — trailer */}
               <a
@@ -201,7 +201,7 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
             >
               <ShoppingCart className="w-4 h-4" />
-              Purchase for $5.99 — Own Forever
+              Purchase for $5.99
             </Link>
           </div>
         </div>
@@ -243,12 +243,6 @@ export default function HomePage() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
-              <Button asChild>
-                <Link href="/watch">
-                  <ShoppingCart className="w-4 h-4" />
-                  Purchase for $5.99
-                </Link>
-              </Button>
               <Button variant="outline" asChild>
                 <Link href="/about">Full Credits</Link>
               </Button>
@@ -272,108 +266,6 @@ export default function HomePage() {
               <div className="flex items-center gap-2">
                 <Award className="w-4 h-4 text-gold/50 shrink-0" />
                 <p className="text-mist text-xs">A film about the sound New Orleans gave the world</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════ */}
-      {/* 5. PURCHASE CARD — full width, prominent                         */}
-      {/* ════════════════════════════════════════════════════════════════ */}
-      <section className="py-20 px-6 bg-studio-black border-t border-studio-border/40">
-        <div className="mx-auto max-w-3xl">
-          <div
-            className="border border-gold/25 rounded-sm overflow-hidden"
-            style={{ boxShadow: "0 0 60px rgba(212,175,119,0.06)" }}
-          >
-            <div className="p-10 space-y-8">
-
-              {/* Header */}
-              <div className="text-center space-y-2">
-                <Badge variant="outline" className="text-[10px] tracking-widest uppercase mb-2">
-                  Available Now
-                </Badge>
-                <h2 className="font-display text-4xl text-cream">Own the film</h2>
-                <p className="text-mist text-sm">One payment. Watch forever. Any device.</p>
-              </div>
-
-              {/* Price + button */}
-              <div className="flex flex-col items-center gap-6">
-                <div className="text-center">
-                  <p className="font-display text-7xl text-gold leading-none">$5<span className="text-4xl text-gold/70">.99</span></p>
-                  <p className="text-mist text-sm mt-2">One-time purchase · No subscription</p>
-                </div>
-
-                {/*
-                  ── STRIPE INTEGRATION ──────────────────────────────────────────
-                  Replace the Link below with a Stripe Payment Link or:
-
-                  Create /app/api/checkout/route.ts:
-                    const session = await stripe.checkout.sessions.create({
-                      payment_method_types: ["card", "apple_pay", "google_pay"],
-                      line_items: [{
-                        price_data: {
-                          currency: "usd",
-                          unit_amount: 599,   // $5.99 in cents
-                          product_data: { name: "Street Beat: Drumming Below Sea Level" },
-                        },
-                        quantity: 1,
-                      }],
-                      mode: "payment",
-                      success_url: `${baseUrl}/watch/success?session_id={CHECKOUT_SESSION_ID}`,
-                      cancel_url:  `${baseUrl}/watch`,
-                    })
-                    return Response.json({ url: session.url })
-
-                  Then change the button to:
-                    <button onClick={async () => {
-                      const { url } = await fetch("/api/checkout").then(r => r.json())
-                      window.location.href = url
-                    }}>
-                      Purchase for $5.99 — Own Forever
-                    </button>
-                  ───────────────────────────────────────────────────────────────
-                */}
-                <Link
-                  href="/watch"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-14 px-12 bg-gold text-studio-black text-[14px] font-bold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-all shadow-lg"
-                >
-                  <ShoppingCart className="w-5 h-5" />
-                  Purchase for $5.99 — Own Forever
-                </Link>
-
-                {/* Trust signals */}
-                <div className="flex flex-wrap justify-center gap-5 text-mist/60 text-xs">
-                  {[
-                    { icon: Shield,    text: "Secure payment" },
-                    { icon: Monitor,   text: "Any device" },
-                    { icon: Captions,  text: "Captions included" },
-                  ].map(({ icon: Icon, text }) => (
-                    <div key={text} className="flex items-center gap-1.5">
-                      <Icon className="w-3.5 h-3.5" />{text}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* What you get */}
-              <div className="border-t border-studio-border/40 pt-6">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-mist/50 mb-4">What you get</p>
-                <div className="grid sm:grid-cols-2 gap-2">
-                  {[
-                    "53-minute documentary in HD",
-                    "Lifetime access — no expiry",
-                    "Stream on any device",
-                    "Closed captions included",
-                    "Email receipt with access link",
-                    "Supports NOLA independent film",
-                  ].map(item => (
-                    <div key={item} className="flex items-center gap-2.5 text-xs text-cream/80">
-                      <div className="w-1.5 h-1.5 rounded-full bg-gold/50 shrink-0" />{item}
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </div>

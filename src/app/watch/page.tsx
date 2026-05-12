@@ -131,7 +131,7 @@ export default function WatchPage() {
                 </div>
                 <div>
                   <p className="font-display text-2xl text-cream">Purchase to watch</p>
-                  <p className="text-mist text-sm mt-1">$5.99 — own forever. No subscription.</p>
+                  <p className="text-mist text-sm mt-1">$5.99 · One-time purchase · No subscription.</p>
                 </div>
               </div>
             </div>
@@ -188,7 +188,7 @@ export default function WatchPage() {
                       Processing…
                     </span>
                   ) : (
-                    <><ShoppingCart className="w-5 h-5" />Purchase for $5.99 — Own Forever</>
+                    <><ShoppingCart className="w-5 h-5" />Purchase for $5.99</>
                   )}
                 </button>
 
