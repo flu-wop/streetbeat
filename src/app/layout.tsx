@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     "Doug Belote","New Orleans percussion","second line","NOLA music documentary",
   ],
   metadataBase: new URL("https://www.streetbeat.video"),
-  icons: { icon: "/favicon.png" },
+  icons: { icon: "/favicon.png", shortcut: "/favicon.ico", apple: "/favicon.png" },
   openGraph: {
     type:        "video.movie",
     url:         "https://www.streetbeat.video",
     siteName:    "Street Beat: Drumming Below Sea Level",
     title:       "Street Beat: Drumming Below Sea Level | Documentary Film",
-    description: "What is the New Orleans drum sound? Find out as NOLA's most infamous drummers discuss this one-of-a-kind sound.",
+    description: "What is the New Orleans drum sound? Find out as NOLA's most influential drummers discuss this one-of-a-kind sound.",
     images: [{ url: "https://i.ytimg.com/vi/JgqTdAVGwUc/maxresdefault.jpg", width: 1280, height: 720 }],
   },
   twitter: {

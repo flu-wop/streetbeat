@@ -84,7 +84,7 @@ export default function WatchPage() {
           <div className="space-y-8">
             <div className="flex items-center gap-2" style={{ color: "#1D9E75" }}>
               <CheckCircle2 className="w-5 h-5" />
-              <span className="text-sm font-medium">Purchase confirmed — enjoy the film</span>
+              <span className="text-sm font-medium">Purchase Confirmed — Enjoy the Film</span>
             </div>
 
             {/*
@@ -128,7 +128,7 @@ export default function WatchPage() {
                   <Lock className="w-7 h-7 text-gold/60" />
                 </div>
                 <div>
-                  <p className="font-display text-2xl text-cream">Purchase to watch</p>
+                  <p className="font-display text-2xl text-cream">Purchase to Watch</p>
                   <p className="text-mist text-sm mt-1">$5.00 · One-time purchase · No subscription.</p>
                 </div>
               </div>
@@ -204,17 +204,17 @@ export default function WatchPage() {
                 </div>
               </div>
 
-              {/* What you get */}
+              {/* What You Get */}
               <div className="border-t border-studio-border/40 px-8 py-5 bg-studio-dark">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-mist/50 mb-3">What you get</p>
+                <p className="text-[10px] tracking-[0.2em] uppercase text-mist/50 mb-3">What You Get</p>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {[
-                    "54-minute documentary in HD",
-                    "Lifetime access — no expiry",
-                    "Stream on any device",
-                    "Closed captions included",
-                    "Email receipt with link",
-                    "Supports NOLA independent film",
+                    "54-Minute Documentary in HD",
+                    "Lifetime Access — No Expiry",
+                    "Stream on Any Device",
+                    "Closed Captions Included",
+                    "Email Receipt with Link",
+                    "Supports NOLA Independent Film",
                   ].map(item => (
                     <div key={item} className="flex items-center gap-2 text-xs text-cream/80">
                       <div className="w-1.5 h-1.5 rounded-full bg-gold/40 shrink-0" />{item}
@@ -228,10 +228,10 @@ export default function WatchPage() {
             <div className="border border-studio-border/40 rounded-sm p-5 flex items-start gap-4">
               <Monitor className="w-4 h-4 text-gold/50 shrink-0 mt-0.5" />
               <div>
-                <p className="text-cream text-sm font-medium mb-1">Group / classroom screening?</p>
+                <p className="text-cream text-sm font-medium mb-1">Group / Classroom Screening?</p>
                 <p className="text-mist text-xs mb-2">Educational institutions, film societies, and venues — reach out for group licensing.</p>
                 <Button variant="ghost" size="sm" asChild>
-                  <Link href="/contact">Contact us</Link>
+                  <Link href="/contact">Contact Us</Link>
                 </Button>
               </div>
             </div>

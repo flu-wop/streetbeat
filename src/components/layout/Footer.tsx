@@ -73,7 +73,7 @@ export function Footer() {
         </div>
 
         {/* MCS ecosystem — same as MCS footer pattern */}
-        <div className="space-y-4">
+        <div className="space-y-4 text-center">
           <p className="text-[10px] font-medium tracking-[0.18em] uppercase text-gold/70">Production</p>
 
           {/* Mid City Sound */}
@@ -81,15 +81,15 @@ export function Footer() {
             href="https://midcitysound.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="block p-4 border border-studio-border/60 rounded-sm hover:border-gold/40 transition-all group"
+            className="block p-4 border border-studio-border/60 rounded-sm hover:border-gold/40 transition-all group text-center"
           >
-            <div className="relative w-[260px] h-[86px] mb-3 opacity-90 group-hover:opacity-100 transition-opacity">
+            <div className="relative w-[260px] h-[86px] mb-3 mx-auto opacity-90 group-hover:opacity-100 transition-opacity">
               <Image src="/images/mcs2-logo.png" alt="Mid City Sound Studios" fill className="object-contain object-left" sizes="300px" />
             </div>
             <p className="text-mist text-xs leading-relaxed group-hover:text-cream transition-colors">
               The studio behind the sound. Book studio sessions in New Orleans.
             </p>
-            <div className="flex items-center gap-1.5 mt-3 text-gold/50 text-[10px] group-hover:text-gold transition-colors">
+            <div className="flex items-center justify-center gap-1.5 mt-3 text-gold/50 text-[10px] group-hover:text-gold transition-colors">
               <span>midcitysound.com</span>
               <ExternalLink className="w-3 h-3" />
             </div>
@@ -117,7 +117,7 @@ export function Footer() {
           <p className="text-mist/50 text-xs">
             © {new Date().getFullYear()} Street Beat: Drumming Below Sea Level · Mid City Sound · New Orleans, LA
           </p>
-          <p className="text-mist/30 text-xs">Runtime: 53 minutes</p>
+          <p className="text-mist/30 text-xs">Runtime: 54 Minutes</p>
         </div>
       </div>
     </footer>

@@ -60,10 +60,10 @@ export default function HomePage() {
         />
 
         {/* Dark overlay — 75% black so poster is recognizable but not overpowering */}
-        <div className="absolute inset-0 bg-studio-black/75" />
+        <div className="absolute inset-0 bg-studio-black/25" />
 
         {/* Gold gradient wash — rises from bottom, frames the text */}
-        <div className="absolute inset-0 bg-gradient-to-t from-studio-black via-studio-black/60 to-studio-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-studio-black via-studio-black/30 to-transparent" />
 
         {/* Warm gold ambient glow — bottom left */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_20%_85%,rgba(212,175,119,0.12),transparent)]" />
@@ -174,7 +174,7 @@ export default function HomePage() {
             <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">
               Official Trailer
             </Badge>
-            <h2 className="font-display text-4xl md:text-5xl text-cream">Watch the trailer</h2>
+            <h2 className="font-display text-4xl md:text-5xl text-cream">Watch the Trailer</h2>
           </div>
 
           {/* YouTube embed — trailer ID: JgqTdAVGwUc */}
@@ -220,9 +220,9 @@ export default function HomePage() {
               About the Film
             </Badge>
             <h2 className="font-display text-4xl md:text-5xl text-cream leading-tight">
-              The drum sound
+              Playing
               <br />
-              <span className="text-gold-gradient italic">New Orleans made</span>
+              <span className="text-gold-gradient italic">&ldquo;In the Cracks&rdquo;</span>
             </h2>
             <Separator className="w-12 bg-gold/40" />
             <div className="space-y-4 text-mist text-sm leading-relaxed">
@@ -243,11 +243,7 @@ export default function HomePage() {
                 is an intimate portrait of a rhythm that shaped the world.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 pt-2">
-              <Button variant="outline" asChild>
-                <Link href="/about">Full Credits</Link>
-              </Button>
-            </div>
+
           </div>
 
           {/* Credits card */}

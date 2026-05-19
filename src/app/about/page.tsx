@@ -30,7 +30,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-4xl">
           <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">About the Film</Badge>
           <h1 className="font-display text-5xl md:text-6xl text-cream mb-4 leading-tight">
-            How it was made
+            The Sound Behind the Film
           </h1>
           <p className="text-mist text-sm max-w-lg leading-relaxed">
             Street Beat began with a simple question: what makes the New Orleans drum sound
@@ -47,7 +47,7 @@ export default function AboutPage() {
               <Film className="w-4 h-4 text-gold/60" />
               <p className="text-[10px] tracking-[0.2em] uppercase text-gold/60">The Origin Story</p>
             </div>
-            <h2 className="font-display text-3xl text-cream">A question from the street</h2>
+            <h2 className="font-display text-3xl text-cream">The Question the City Never Stopped Asking</h2>
             <Separator className="w-10 bg-gold/40" />
             <div className="space-y-4 text-mist text-sm leading-relaxed">
               <p>
