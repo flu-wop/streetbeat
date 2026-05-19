@@ -57,7 +57,7 @@ export default function WatchPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-studio-charcoal to-transparent" />
         </div>
 
-        <div className="relative mx-auto max-w-4xl">
+        <div className="relative mx-auto max-w-4xl text-center sm:text-left">
           <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">Watch Now</Badge>
           <h1 className="font-display text-5xl md:text-6xl text-cream mb-3 leading-tight">
             Street Beat
@@ -66,7 +66,7 @@ export default function WatchPage() {
               Drumming Below Sea Level
             </span>
           </h1>
-          <div className="flex flex-wrap items-center gap-4 mt-4">
+          <div className="flex flex-wrap items-center gap-4 mt-4 justify-center sm:justify-start">
             <span className="flex items-center gap-1.5 text-mist text-xs"><Clock className="w-3.5 h-3.5 text-gold/60" />54 minutes</span>
             <Separator orientation="vertical" className="h-3" />
             <span className="text-mist text-xs">Mid City Sound Production</span>
