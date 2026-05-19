@@ -65,17 +65,4 @@
   .delay-700 { animation-delay: 700ms; }
 }
 
-/* ── Mobile center alignment ──────────────────────────────────── */
-@media (max-width: 639px) {
-  h1, h2, h3 {
-    text-align: center;
-  }
-  p {
-    text-align: center;
-  }
-  /* Override for form elements and specific left-aligned items */
-  input, textarea, label,
-  .text-left-override {
-    text-align: left;
-  }
-}
+

@@ -218,7 +218,7 @@ export default function HomePage() {
           <div className="py-16 sm:py-20 grid md:grid-cols-[1fr_300px] gap-10 md:gap-14 items-start">
 
             {/* Synopsis */}
-            <div className="space-y-6 text-center sm:text-left">
+            <div className="space-y-6">
               <Badge variant="outline" className="text-[10px] tracking-widest uppercase">
                 About the Film
               </Badge>
@@ -227,8 +227,8 @@ export default function HomePage() {
                 <br />
                 <span className="text-gold-gradient italic">&ldquo;In the Cracks&rdquo;</span>
               </h2>
-              <Separator className="w-12 bg-gold/40 mx-auto sm:mx-0" />
-              <div className="space-y-4 text-mist text-sm leading-relaxed">
+              <Separator className="w-12 bg-gold/40 mx-auto" />
+              <div className="space-y-4 text-mist text-sm leading-relaxed text-center sm:text-left">
                 <p>
                   New Orleans has a drum sound unlike anywhere else on earth. It lives in the second line,
                   in the brass band, in the improvised groove that runs through everything from jazz to
@@ -281,7 +281,7 @@ export default function HomePage() {
                     sizes="200px"
                   />
                 </div>
-                <div>
+                <div className="text-center sm:text-left">
                   <p className="text-cream text-sm font-medium mb-1">
                     Street Beat is a Mid City Sound Studios production
                   </p>
