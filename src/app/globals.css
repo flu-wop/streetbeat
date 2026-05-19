@@ -67,15 +67,15 @@
 
 /* ── Mobile center alignment ──────────────────────────────────── */
 @media (max-width: 639px) {
-  .font-display,
   h1, h2, h3 {
     text-align: center;
   }
-  .text-mist, .text-cream\/70, .text-mist\/60 {
+  p {
     text-align: center;
   }
-  .badge-outline {
-    margin-left: auto;
-    margin-right: auto;
+  /* Override for form elements and specific left-aligned items */
+  input, textarea, label,
+  .text-left-override {
+    text-align: left;
   }
 }

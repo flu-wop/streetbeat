@@ -270,14 +270,14 @@ export default function HomePage() {
 
           {/* MCS crosslink — directly attached, no gap */}
           <div className="border-t border-studio-border/40 py-10">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+            <div className="flex flex-col items-center sm:flex-row sm:items-center gap-6 sm:justify-between text-center sm:text-left">
+              <div className="flex flex-col items-center sm:flex-row sm:items-center gap-5">
                 <div className="relative w-[200px] h-[66px] shrink-0">
                   <Image
                     src="/images/mcs2-logo.png"
                     alt="Mid City Sound Studios"
                     fill
-                    className="object-contain object-left"
+                    className="object-contain object-center"
                     sizes="200px"
                   />
                 </div>
@@ -290,7 +290,7 @@ export default function HomePage() {
                   </p>
                 </div>
               </div>
-              <Button variant="outline" asChild className="shrink-0">
+              <Button variant="outline" asChild className="shrink-0 w-full sm:w-auto">
                 <Link href="https://midcitysound.com" target="_blank" rel="noopener noreferrer">
                   Book Now
                   <ArrowRight className="w-4 h-4" />
