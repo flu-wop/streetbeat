@@ -280,9 +280,9 @@ export default function HomePage() {
         <div className="mx-auto max-w-5xl">
           <div className="border border-studio-border/50 rounded-sm overflow-hidden grid md:grid-cols-[1fr_auto] items-center">
             <div className="p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <div className="relative w-[220px] h-[72px] shrink-0">
+              <div className="relative w-[260px] h-[86px] shrink-0">
                 <Image
-                  src="/images/mcs-logo.jpg"
+                  src="/images/mcs2-logo.png"
                   alt="Mid City Sound Studios"
                   fill
                   className="object-contain object-left"
