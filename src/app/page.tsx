@@ -87,7 +87,7 @@ export default function HomePage() {
               className="flex items-center gap-3 mb-5 opacity-0 animate-fade-up delay-200 justify-center"
               style={{ animationFillMode: "forwards" }}
             >
-              <div className="w-8 h-px bg-gold/60" />
+              <div className="w-8 h-px bg-gold/60 hidden sm:block" />
               <span className="text-[11px] tracking-[0.25em] uppercase text-gold/80 font-sans">
                 Documentary Film · New Orleans · 2025
               </span>
@@ -219,10 +219,10 @@ export default function HomePage() {
 
             {/* Synopsis */}
             <div className="space-y-6">
-              <Badge variant="outline" className="text-[10px] tracking-widest uppercase">
+              <Badge variant="outline" className="text-[10px] tracking-widest uppercase mx-auto sm:mx-0 block w-fit">
                 About the Film
               </Badge>
-              <h2 className="font-display text-4xl md:text-5xl text-cream leading-tight">
+              <h2 className="font-display text-4xl md:text-5xl text-cream leading-tight text-center sm:text-left">
                 Playing
                 <br />
                 <span className="text-gold-gradient italic">&ldquo;In the Cracks&rdquo;</span>
