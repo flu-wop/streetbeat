@@ -84,7 +84,7 @@ export default function HomePage() {
 
             {/* Eyebrow */}
             <div
-              className="flex items-center gap-3 mb-5 opacity-0 animate-fade-up delay-200 justify-center sm:justify-start"
+              className="flex items-center gap-3 mb-5 opacity-0 animate-fade-up delay-200 justify-center"
               style={{ animationFillMode: "forwards" }}
             >
               <div className="w-8 h-px bg-gold/60" />
@@ -95,7 +95,7 @@ export default function HomePage() {
 
             {/* Title */}
             <h1
-              className="font-display mb-4 opacity-0 animate-fade-up delay-300"
+              className="font-display mb-4 opacity-0 animate-fade-up delay-300 text-center sm:text-left"
               style={{ animationFillMode: "forwards" }}
             >
               <span className="block text-[clamp(48px,8vw,96px)] text-cream leading-[0.9]">
@@ -108,7 +108,7 @@ export default function HomePage() {
 
             {/* Logline */}
             <p
-              className="text-mist text-base md:text-lg max-w-md leading-relaxed mb-7 font-light opacity-0 animate-fade-up delay-400"
+              className="text-mist text-base md:text-lg max-w-md leading-relaxed mb-7 font-light opacity-0 animate-fade-up delay-400 text-center sm:text-left"
               style={{ animationFillMode: "forwards" }}
             >
               What is the New Orleans drum sound? NOLA's most influential drummers
