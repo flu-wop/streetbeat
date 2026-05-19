@@ -54,7 +54,7 @@ export default function AboutPage() {
                 Mid City Sound Studios has always been rooted in New Orleans rhythm.
                 When producer Donald Markowitz and the team at Fire on the Bayou began
                 discussing the New Orleans percussion tradition, one question kept coming up:
-                <em className="not-italic text-cream/80"> why does it sound the way it sounds?</em>
+                <em className="not-italic text-cream/80"> why does it sound the way it does?</em>
               </p>
               <p>
                 The answer wasn't in a textbook. It was in the people — the drummers who

@@ -84,7 +84,7 @@ export function Footer() {
             className="block p-4 border border-studio-border/60 rounded-sm hover:border-gold/40 transition-all duration-200 group"
           >
             <div className="flex justify-center mb-3"><div className="relative w-[220px] h-[72px] opacity-90 group-hover:opacity-100 transition-opacity">
-              <Image src="/images/mcs2-logo.png" alt="Mid City Sound Studios" fill className="object-contain object-left" sizes="220px" />
+              <Image src="/images/mcs2-logo.png" alt="Mid City Sound Studios" fill className="object-contain object-center" sizes="220px" />
             </div></div>
             <p className="text-center text-mist text-xs leading-relaxed group-hover:text-cream transition-colors">
               The studio behind the sound. Book studio sessions in New Orleans.
