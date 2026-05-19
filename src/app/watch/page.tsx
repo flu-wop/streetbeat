@@ -53,7 +53,7 @@ export default function WatchPage() {
       <section className="py-16 px-6 border-b border-studio-border/40 bg-studio-charcoal relative overflow-hidden">
         {/* Poster thumbnail on right — desktop only */}
         <div className="absolute right-0 top-0 bottom-0 w-1/3 hidden lg:block">
-          <Image src="/images/streetbeat-poster.png" alt="" fill className="object-cover object-center opacity-15" sizes="33vw" />
+          <Image src="/images/streetbeat-poster.png" alt="" fill className="object-cover object-center opacity-40" sizes="33vw" />
           <div className="absolute inset-0 bg-gradient-to-r from-studio-charcoal to-transparent" />
         </div>
 
@@ -122,7 +122,7 @@ export default function WatchPage() {
             {/* Lock screen preview */}
             <div className="relative aspect-video rounded-sm overflow-hidden border border-studio-border/60 bg-studio-dark">
               {/* Poster blurred behind lock */}
-              <Image src="/images/streetbeat-poster.png" alt="" fill className="object-cover opacity-20 blur-sm" sizes="800px" />
+              <Image src="/images/streetbeat-poster.png" alt="" fill className="object-cover opacity-[0.45] blur-sm" sizes="800px" />
               <div className="absolute inset-0 bg-studio-black/60 flex flex-col items-center justify-center gap-5 text-center px-8">
                 <div className="w-16 h-16 border border-gold/30 rounded-full flex items-center justify-center bg-studio-black/60 backdrop-blur-sm">
                   <Lock className="w-7 h-7 text-gold/60" />

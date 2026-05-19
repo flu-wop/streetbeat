@@ -288,7 +288,7 @@ export default function HomePage() {
                     Street Beat is a Mid City Sound Studios production
                   </p>
                   <p className="text-mist text-xs leading-relaxed max-w-sm">
-                    Book studio time in New Orleans with Donald Markowitz at Mid City Sound — the studio behind the film.
+                    Book studio time in New Orleans at Mid City Sound — the studio behind the film.
                   </p>
                 </div>
               </div>

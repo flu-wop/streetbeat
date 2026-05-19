@@ -27,7 +27,7 @@ export default function ContactPage() {
       <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-studio-border/40 bg-studio-charcoal">
         <div className="mx-auto max-w-4xl">
           <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">Contact</Badge>
-          <h1 className="font-display text-5xl md:text-6xl text-cream mb-4 leading-tight">Get in touch</h1>
+          <h1 className="font-display text-5xl md:text-6xl text-cream mb-4 leading-tight">Get in Touch</h1>
           <p className="text-mist text-sm max-w-md leading-relaxed">
             Screening inquiries, press access, group licensing, or general questions — we read every message.
           </p>
