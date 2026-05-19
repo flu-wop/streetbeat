@@ -38,13 +38,13 @@ export default function ContactPage() {
           <div className="space-y-6">
             <div>
               <p className="text-[10px] tracking-widest uppercase text-gold/60 mb-2">Email</p>
-              <a href="mailto:midcitysound@gmail.com" className="text-cream text-sm hover:text-gold transition-colors">midcitysound@gmail.com</a>
+              <a href="mailto:midcitysound1@gmail.com" className="text-cream text-sm hover:text-gold transition-colors">midcitysound1@gmail.com</a>
             </div>
             <div>
               <p className="text-[10px] tracking-widest uppercase text-gold/60 mb-2">Studio</p>
               <div className="flex items-start gap-2 text-mist text-sm">
                 <MapPin className="w-3.5 h-3.5 mt-0.5 text-gold/40 shrink-0" />
-                <span>Mid City Sound Studios<br />New Orleans, Louisiana</span>
+                <span>Mid City Sound Studios<br />530 S Norman C Francis Pkwy<br />New Orleans, Louisiana</span>
               </div>
             </div>
             <div>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | Street Beat Documentary",
   },
   description:
-    "A 53-minute documentary exploring the unique drum sound of New Orleans. " +
+    "A 54-minute documentary exploring the unique drum sound of New Orleans. " +
     "Produced by Mid City Sound & Fire on the Bayou. Hosted by Doug Belote.",
   keywords: [
     "New Orleans drumming","NOLA documentary","street beat","Mid City Sound",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   twitter: {
     card:        "summary_large_image",
     title:       "Street Beat: Drumming Below Sea Level",
-    description: "A documentary about the New Orleans drum sound. 53 minutes. Produced by Mid City Sound.",
+    description: "A documentary about the New Orleans drum sound. 54 minutes. Produced by Mid City Sound.",
   },
   robots: { index: true, follow: true },
 };

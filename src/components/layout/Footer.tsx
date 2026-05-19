@@ -83,7 +83,7 @@ export function Footer() {
             rel="noopener noreferrer"
             className="block p-4 border border-studio-border/60 rounded-sm hover:border-gold/40 transition-all group"
           >
-            <div className="relative w-[160px] h-[52px] mb-3 opacity-70 group-hover:opacity-100 transition-opacity">
+            <div className="relative w-[200px] h-[66px] mb-3 opacity-90 group-hover:opacity-100 transition-opacity">
               <Image src="/images/mcs-logo.jpg" alt="Mid City Sound Studios" fill className="object-contain object-left" sizes="160px" />
             </div>
             <p className="text-mist text-xs leading-relaxed group-hover:text-cream transition-colors">

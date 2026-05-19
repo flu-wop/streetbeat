@@ -1,5 +1,5 @@
 // src/app/watch/page.tsx — PURCHASE / PAYWALL PAGE
-// Single price: $5.99 Own Forever. Rental option removed.
+// Single price: $5.00 Own Forever. Rental option removed.
 //
 // STRIPE INTEGRATION:
 //   Create /app/api/checkout/route.ts:
@@ -36,16 +36,14 @@ export default function WatchPage() {
 
   async function handlePurchase() {
     setLoading(true)
-    /*
-    ── STRIPE (uncomment when ready) ─────────────────────────────────────────
-    const res = await fetch("/api/checkout", { method: "POST" })
-    const { url } = await res.json()
-    window.location.href = url
-    ─────────────────────────────────────────────────────────────────────────
-    */
-    await new Promise(r => setTimeout(r, 1500)) // Demo only
+    // ── STRIPE: wire up when ready ────────────────────────────────────────
+    // const res = await fetch("/api/checkout", { method: "POST" })
+    // const { url } = await res.json()
+    // window.location.href = url
+    // ─────────────────────────────────────────────────────────────────────
+    // TODO: remove this alert and uncomment the Stripe block above
     setLoading(false)
-    setHasAccess(true)
+    alert("Stripe checkout coming soon. Payment not yet enabled.")
   }
 
   return (
@@ -69,7 +67,7 @@ export default function WatchPage() {
             </span>
           </h1>
           <div className="flex flex-wrap items-center gap-4 mt-4">
-            <span className="flex items-center gap-1.5 text-mist text-xs"><Clock className="w-3.5 h-3.5 text-gold/60" />53 minutes</span>
+            <span className="flex items-center gap-1.5 text-mist text-xs"><Clock className="w-3.5 h-3.5 text-gold/60" />54 minutes</span>
             <Separator orientation="vertical" className="h-3" />
             <span className="text-mist text-xs">Mid City Sound Production</span>
             <Separator orientation="vertical" className="h-3" />
@@ -112,7 +110,7 @@ export default function WatchPage() {
               <ShieldCheck className="w-4 h-4 text-gold/50 shrink-0 mt-0.5" />
               <p className="text-mist text-xs leading-relaxed">
                 This is a protected stream. For support, contact{" "}
-                <a href="mailto:midcitysound@gmail.com" className="text-gold hover:underline">midcitysound@gmail.com</a>
+                <a href="mailto:midcitysound1@gmail.com" className="text-gold hover:underline">midcitysound1@gmail.com</a>
               </p>
             </div>
           </div>
@@ -131,7 +129,7 @@ export default function WatchPage() {
                 </div>
                 <div>
                   <p className="font-display text-2xl text-cream">Purchase to watch</p>
-                  <p className="text-mist text-sm mt-1">$5.99 · One-time purchase · No subscription.</p>
+                  <p className="text-mist text-sm mt-1">$5.00 · One-time purchase · No subscription.</p>
                 </div>
               </div>
             </div>
@@ -146,7 +144,7 @@ export default function WatchPage() {
                 {/* Price */}
                 <div className="text-center space-y-2">
                   <p className="font-display text-7xl text-gold leading-none">
-                    $5<span className="text-4xl text-gold/70">.99</span>
+                    $5<span className="text-4xl text-gold/70">.00</span>
                   </p>
                   <p className="text-mist text-sm">One-time · Own forever · No subscription</p>
                 </div>
@@ -188,7 +186,7 @@ export default function WatchPage() {
                       Processing…
                     </span>
                   ) : (
-                    <><ShoppingCart className="w-5 h-5" />Purchase for $5.99</>
+                    <><ShoppingCart className="w-5 h-5" />Purchase for $5.00</>
                   )}
                 </button>
 
@@ -211,7 +209,7 @@ export default function WatchPage() {
                 <p className="text-[10px] tracking-[0.2em] uppercase text-mist/50 mb-3">What you get</p>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {[
-                    "53-minute documentary in HD",
+                    "54-minute documentary in HD",
                     "Lifetime access — no expiry",
                     "Stream on any device",
                     "Closed captions included",

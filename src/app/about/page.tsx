@@ -13,25 +13,11 @@ export const metadata: Metadata = {
 }
 
 const FULL_CREDITS = [
-  { category: "Direction & Production",  credits: [
-    { role: "Produced by",      name: "Mid City Sound Studios" },
-    { role: "Produced by",      name: "Fire on the Bayou" },
-    { role: "Host",             name: "Doug Belote" },
-  ]},
-  { category: "Music & Sound",          credits: [
-    { role: "Sound Design",     name: "[Placeholder — add name]" },
-    { role: "Music",            name: "Mid City Sound Studios" },
-    { role: "Mixed by",         name: "Donald Markowitz" },
-  ]},
-  { category: "Post Production",        credits: [
-    { role: "Edited by",        name: "[Placeholder — add name]" },
-    { role: "Color Grade",      name: "[Placeholder — add name]" },
-    { role: "Visual Effects",   name: "[Placeholder — add name]" },
-  ]},
-  { category: "Special Thanks",         credits: [
-    { role: "Studio",           name: "Mid City Sound Studios, New Orleans" },
-    { role: "Community",        name: "The New Orleans drumming community" },
-    { role: "Executive",        name: "Donald Markowitz" },
+  { category: "Direction & Production", credits: [
+    { role: "Produced by", name: "Mid City Sound Studios" },
+    { role: "Produced by", name: "Fire on the Bayou" },
+    { role: "Produced by", name: "Doreja Productions" },
+    { role: "Host",        name: "Doug Belote" },
   ]},
 ]
 
@@ -81,7 +67,7 @@ export default function AboutPage() {
                 and the credibility to have the conversations that this film needed to have.
               </p>
               <p>
-                What emerged was 53 minutes of music, memory, and rhythm — a portrait of a
+                What emerged was 54 minutes of music, memory, and rhythm — a portrait of a
                 sound that can't be manufactured and can't be exported. It can only be absorbed.
               </p>
             </div>
@@ -94,7 +80,7 @@ export default function AboutPage() {
           {/* Film facts sidebar */}
           <div className="space-y-4">
             {[
-              { icon: Film,  label: "Runtime",    value: "53 minutes" },
+              { icon: Film,  label: "Runtime",    value: "54 minutes" },
               { icon: MapPin,label: "Location",   value: "New Orleans, Louisiana" },
               { icon: Music, label: "Studio",     value: "Mid City Sound Studios" },
               { icon: Users, label: "Host",       value: "Doug Belote" },
@@ -113,36 +99,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Full credits ── */}
-      <section className="py-20 px-6 border-t border-studio-border/40 bg-studio-charcoal">
-        <div className="mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">Full Credits</Badge>
-            <h2 className="font-display text-4xl text-cream">The team</h2>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-5">
-            {FULL_CREDITS.map(({ category, credits }) => (
-              <div key={category} className="border border-studio-border bg-studio-card rounded-sm overflow-hidden">
-                <div className="px-5 py-3 border-b border-studio-border bg-studio-dark">
-                  <p className="text-[10px] tracking-[0.18em] uppercase text-gold/70">{category}</p>
-                </div>
-                <div className="divide-y divide-studio-border/40">
-                  {credits.map(({ role, name }, i) => (
-                    <div key={i} className="px-5 py-3.5">
-                      <p className="text-[10px] uppercase tracking-widest text-mist/40 mb-0.5">{role}</p>
-                      <p className="text-cream text-sm">{name}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-mist/40 text-xs mt-8">
-            ← Replace placeholder credits with final names before launch
-          </p>
-        </div>
-      </section>
     </div>
   )
 }

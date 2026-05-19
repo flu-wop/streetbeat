@@ -1,7 +1,7 @@
 // src/app/page.tsx — Street Beat: Drumming Below Sea Level
 // ─────────────────────────────────────────────────────────────────────────────
 // Full rebuild matching Mid City Sound dark/gold luxury aesthetic.
-// Single purchase price: $5.99 Own Forever. Rental removed.
+// Single purchase price: $5.00 Own Forever. Rental removed.
 // Hero uses poster image with cinematic dark overlay.
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -20,18 +20,19 @@ import { Separator } from "@/components/ui/separator"
 export const metadata: Metadata = {
   title: "Street Beat: Drumming Below Sea Level | Documentary Film",
   description:
-    "A 53-minute documentary exploring the unique drum sound of New Orleans. " +
-    "Produced by Mid City Sound & Fire on the Bayou. Own forever for $5.99.",
+    "A 54-minute documentary exploring the unique drum sound of New Orleans. " +
+    "Produced by Mid City Sound & Fire on the Bayou. Own forever for $5.00.",
   openGraph: {
     images: [{ url: "/images/streetbeat-poster.png", width: 1280, height: 720 }],
   },
 }
 
 const CREDITS = [
-  { role: "Produced by",  name: "Mid City Sound & Fire on the Bayou" },
+  { role: "Produced by",  name: "Mid City Sound Studios" },
+  { role: "Produced by",  name: "Fire on the Bayou" },
+  { role: "Produced by",  name: "Doreja Productions" },
   { role: "Hosted by",    name: "Doug Belote" },
-  { role: "Studio",       name: "Mid City Sound Studios, New Orleans" },
-  { role: "Runtime",      name: "53 minutes" },
+  { role: "Runtime",      name: "54 minutes" },
   { role: "Released",     name: "2025" },
 ]
 
@@ -120,7 +121,7 @@ export default function HomePage() {
               style={{ animationFillMode: "forwards" }}
             >
               {[
-                { icon: Clock,  text: "53 minutes" },
+                { icon: Clock,  text: "54 minutes" },
                 { icon: MapPin, text: "New Orleans, Louisiana" },
                 { icon: Film,   text: "Mid City Sound Production" },
               ].map(({ icon: Icon, text }) => (
@@ -142,7 +143,7 @@ export default function HomePage() {
                 className="inline-flex items-center justify-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
               >
                 <ShoppingCart className="w-4 h-4" />
-                Purchase for $5.99
+                Purchase for $5.00
               </Link>
               {/* Secondary — trailer */}
               <a
@@ -201,7 +202,7 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
             >
               <ShoppingCart className="w-4 h-4" />
-              Purchase for $5.99
+              Purchase for $5.00
             </Link>
           </div>
         </div>
@@ -238,7 +239,7 @@ export default function HomePage() {
               <p>
                 Produced by <strong className="text-cream font-normal">Mid City Sound Studios</strong> and{" "}
                 <strong className="text-cream font-normal">Fire on the Bayou</strong>, and hosted by{" "}
-                <strong className="text-cream font-normal">Doug Belote</strong>, this 53-minute documentary
+                <strong className="text-cream font-normal">Doug Belote</strong>, this 54-minute documentary
                 is an intimate portrait of a rhythm that shaped the world.
               </p>
             </div>
@@ -272,39 +273,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════ */}
-      {/* 6. PULL QUOTE                                                    */}
-      {/* ════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-6 relative overflow-hidden border-t border-studio-border/40 bg-studio-charcoal">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,rgba(212,175,119,0.04),transparent)]" />
-        <div className="relative mx-auto max-w-3xl text-center">
-          <p className="font-display text-[100px] leading-none text-gold/8 select-none -mb-6">&ldquo;</p>
-          <blockquote className="font-display text-3xl md:text-4xl text-cream/90 italic font-light leading-relaxed">
-            The New Orleans drum sound isn&apos;t something you learn.
-            It&apos;s something you absorb — from the streets, from the parades,
-            from the water table itself.
-          </blockquote>
-          <p className="text-mist text-sm mt-6 tracking-wide">
-            — Doug Belote, Host &nbsp;·&nbsp; <span className="text-mist/40 italic text-xs">Placeholder — replace with real quote from film</span>
-          </p>
-          <Separator className="w-10 bg-gold/30 mx-auto mt-8" />
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════ */}
+            {/* ════════════════════════════════════════════════════════════════ */}
       {/* 7. MCS ECOSYSTEM CROSSLINK                                       */}
       {/* ════════════════════════════════════════════════════════════════ */}
       <section className="py-14 px-6 border-t border-studio-border/40 bg-studio-black">
         <div className="mx-auto max-w-5xl">
           <div className="border border-studio-border/50 rounded-sm overflow-hidden grid md:grid-cols-[1fr_auto] items-center">
             <div className="p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <div className="relative w-[140px] h-[46px] shrink-0 opacity-80">
+              <div className="relative w-[220px] h-[72px] shrink-0">
                 <Image
                   src="/images/mcs-logo.jpg"
                   alt="Mid City Sound Studios"
                   fill
                   className="object-contain object-left"
-                  sizes="140px"
+                  sizes="220px"
                 />
               </div>
               <Separator orientation="vertical" className="h-10 hidden sm:block" />
