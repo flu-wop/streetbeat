@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName:    "Street Beat: Drumming Below Sea Level",
     title:       "Street Beat: Drumming Below Sea Level | Documentary Film",
     description: "What is the New Orleans drum sound? Find out as NOLA's most influential drummers discuss this one-of-a-kind sound.",
-    images: [{ url: "https://i.ytimg.com/vi/JgqTdAVGwUc/maxresdefault.jpg", width: 1280, height: 720 }],
+    images: [{ url: "/images/streetbeat-poster.png", width: 1328, height: 784 }],
   },
   twitter: {
     card:        "summary_large_image",

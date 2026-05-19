@@ -209,101 +209,98 @@ export default function HomePage() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════ */}
-      {/* 4. SYNOPSIS + CREDITS                                            */}
+      {/* 4. SYNOPSIS + CREDITS + MCS CROSSLINK (merged)                   */}
       {/* ════════════════════════════════════════════════════════════════ */}
-      <section className="py-20 px-6 border-t border-studio-border/40 bg-studio-charcoal">
-        <div className="mx-auto max-w-5xl grid md:grid-cols-[1fr_300px] gap-14 items-start">
+      <section className="border-t border-studio-border/40 bg-studio-charcoal">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
 
-          {/* Synopsis */}
-          <div className="space-y-6">
-            <Badge variant="outline" className="text-[10px] tracking-widest uppercase">
-              About the Film
-            </Badge>
-            <h2 className="font-display text-4xl md:text-5xl text-cream leading-tight">
-              Playing
-              <br />
-              <span className="text-gold-gradient italic">&ldquo;In the Cracks&rdquo;</span>
-            </h2>
-            <Separator className="w-12 bg-gold/40" />
-            <div className="space-y-4 text-mist text-sm leading-relaxed">
-              <p>
-                New Orleans has a drum sound unlike anywhere else on earth. It lives in the second line,
-                in the brass band, in the improvised groove that runs through everything from jazz to
-                bounce to hip-hop. But what is it, exactly? Where does it come from?
-              </p>
-              <p>
-                <em className="not-italic text-cream/80">Street Beat: Drumming Below Sea Level</em> brings together
-                NOLA's most influential percussionists to answer that question — in their own words,
-                in the city that made them.
-              </p>
-              <p>
-                Produced by <strong className="text-cream font-normal">Mid City Sound Studios</strong> and{" "}
-                <strong className="text-cream font-normal">Fire on the Bayou</strong>, and hosted by{" "}
-                <strong className="text-cream font-normal">Doug Belote</strong>, this 54-minute documentary
-                is an intimate portrait of a rhythm that shaped the world.
-              </p>
+          {/* Synopsis + Credits */}
+          <div className="py-16 sm:py-20 grid md:grid-cols-[1fr_300px] gap-10 md:gap-14 items-start">
+
+            {/* Synopsis */}
+            <div className="space-y-6">
+              <Badge variant="outline" className="text-[10px] tracking-widest uppercase">
+                About the Film
+              </Badge>
+              <h2 className="font-display text-4xl md:text-5xl text-cream leading-tight">
+                Playing
+                <br />
+                <span className="text-gold-gradient italic">&ldquo;In the Cracks&rdquo;</span>
+              </h2>
+              <Separator className="w-12 bg-gold/40" />
+              <div className="space-y-4 text-mist text-sm leading-relaxed">
+                <p>
+                  New Orleans has a drum sound unlike anywhere else on earth. It lives in the second line,
+                  in the brass band, in the improvised groove that runs through everything from jazz to
+                  bounce to hip-hop. But what is it, exactly? Where does it come from?
+                </p>
+                <p>
+                  <em className="not-italic text-cream/80">Street Beat: Drumming Below Sea Level</em> brings together
+                  NOLA&apos;s most influential percussionists to answer that question — in their own words,
+                  in the city that made them.
+                </p>
+                <p>
+                  Produced by <strong className="text-cream font-normal">Mid City Sound Studios</strong> and{" "}
+                  <strong className="text-cream font-normal">Fire on the Bayou</strong>, and hosted by{" "}
+                  <strong className="text-cream font-normal">Doug Belote</strong>, this 54-minute documentary
+                  is an intimate portrait of a rhythm that shaped the world.
+                </p>
+              </div>
             </div>
 
-          </div>
-
-          {/* Credits card */}
-          <div className="border border-studio-border rounded-sm bg-studio-card overflow-hidden">
-            <div className="p-5 border-b border-studio-border">
-              <p className="text-[10px] tracking-[0.2em] uppercase text-gold/70 font-medium">Film Credits</p>
-            </div>
-            <div className="divide-y divide-studio-border">
-              {CREDITS.map(({ role, name }) => (
-                <div key={role} className="px-5 py-4">
-                  <p className="text-[10px] tracking-widest uppercase text-mist/50 mb-1">{role}</p>
-                  <p className="text-cream text-sm">{name}</p>
+            {/* Credits card */}
+            <div className="border border-studio-border rounded-sm bg-studio-card overflow-hidden">
+              <div className="p-5 border-b border-studio-border">
+                <p className="text-[10px] tracking-[0.2em] uppercase text-gold/70 font-medium">Film Credits</p>
+              </div>
+              <div className="divide-y divide-studio-border">
+                {CREDITS.map(({ role, name }) => (
+                  <div key={role} className="px-5 py-4">
+                    <p className="text-[10px] tracking-widest uppercase text-mist/50 mb-1">{role}</p>
+                    <p className="text-cream text-sm">{name}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="p-5 border-t border-studio-border bg-studio-dark">
+                <div className="flex items-center gap-2">
+                  <Award className="w-4 h-4 text-gold/50 shrink-0" />
+                  <p className="text-mist text-xs">A film about the sound New Orleans gave the world</p>
                 </div>
-              ))}
-            </div>
-            <div className="p-5 border-t border-studio-border bg-studio-dark">
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-gold/50 shrink-0" />
-                <p className="text-mist text-xs">A film about the sound New Orleans gave the world</p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-            {/* ════════════════════════════════════════════════════════════════ */}
-      {/* 7. MCS ECOSYSTEM CROSSLINK                                       */}
-      {/* ════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 px-6 border-t border-studio-border/40 bg-studio-black">
-        <div className="mx-auto max-w-5xl">
-          <div className="border border-studio-border/50 rounded-sm overflow-hidden grid md:grid-cols-[1fr_auto] items-center">
-            <div className="p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <div className="relative w-[260px] h-[86px] shrink-0">
-                <Image
-                  src="/images/mcs2-logo.png"
-                  alt="Mid City Sound Studios"
-                  fill
-                  className="object-contain object-left"
-                  sizes="220px"
-                />
+          {/* MCS crosslink — directly attached, no gap */}
+          <div className="border-t border-studio-border/40 py-10">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+                <div className="relative w-[200px] h-[66px] shrink-0">
+                  <Image
+                    src="/images/mcs2-logo.png"
+                    alt="Mid City Sound Studios"
+                    fill
+                    className="object-contain object-left"
+                    sizes="200px"
+                  />
+                </div>
+                <div>
+                  <p className="text-cream text-sm font-medium mb-1">
+                    Street Beat is a Mid City Sound Studios production
+                  </p>
+                  <p className="text-mist text-xs leading-relaxed max-w-sm">
+                    Book studio time in New Orleans with Donald Markowitz at Mid City Sound — the studio behind the film.
+                  </p>
+                </div>
               </div>
-              <Separator orientation="vertical" className="h-10 hidden sm:block" />
-              <div>
-                <p className="text-cream text-sm font-medium mb-1">
-                  Street Beat is a Mid City Sound Studios production
-                </p>
-                <p className="text-mist text-xs leading-relaxed max-w-sm">
-                  Book studio time in New Orleans with Donald Markowitz at Mid City Sound — the studio behind the film.
-                </p>
-              </div>
-            </div>
-            <div className="px-8 py-5 border-t md:border-t-0 md:border-l border-studio-border/40 shrink-0">
-              <Button variant="outline" asChild>
+              <Button variant="outline" asChild className="shrink-0">
                 <Link href="https://midcitysound.com" target="_blank" rel="noopener noreferrer">
-                  Visit Studio
+                  Book Now
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>
             </div>
           </div>
+
         </div>
       </section>
     </>

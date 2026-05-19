@@ -150,7 +150,7 @@ export default function WatchPage() {
                 </div>
 
                 {/* Apple Pay / Google Pay placeholders */}
-                <div className="grid sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <button onClick={handlePurchase}
                     className="h-12 bg-studio-black border border-studio-border rounded-sm flex items-center justify-center gap-2 text-cream hover:border-gold/40 transition-all text-sm font-medium">
                     <Apple className="w-5 h-5" /> Apple Pay
@@ -178,7 +178,7 @@ export default function WatchPage() {
                 <button
                   onClick={handlePurchase}
                   disabled={loading}
-                  className="w-full h-14 bg-gold text-studio-black text-[14px] font-bold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-all disabled:opacity-60 flex items-center justify-center gap-2"
+                  className="w-full h-14 bg-gold text-studio-black text-[14px] font-bold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-all duration-200 disabled:opacity-60 flex items-center justify-center gap-2 active:scale-[0.98]"
                 >
                   {loading ? (
                     <span className="flex items-center gap-2">
@@ -225,7 +225,7 @@ export default function WatchPage() {
             </div>
 
             {/* Group screening note */}
-            <div className="border border-studio-border/40 rounded-sm p-5 flex items-start gap-4">
+            <div className="border border-studio-border/40 rounded-sm p-5 flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
               <Monitor className="w-4 h-4 text-gold/50 shrink-0 mt-0.5" />
               <div>
                 <p className="text-cream text-sm font-medium mb-1">Group / Classroom Screening?</p>

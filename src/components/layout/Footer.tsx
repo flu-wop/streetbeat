@@ -25,7 +25,7 @@ export function Footer() {
   return (
     <footer className="border-t border-studio-border bg-studio-charcoal">
 
-      <div className="mx-auto max-w-6xl px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="mx-auto max-w-6xl px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
 
         {/* Brand column */}
         <div className="space-y-5 md:col-span-1">
@@ -81,7 +81,7 @@ export function Footer() {
             href="https://midcitysound.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="block p-4 border border-studio-border/60 rounded-sm hover:border-gold/40 transition-all group text-center"
+            className="block p-4 border border-studio-border/60 rounded-sm hover:border-gold/40 transition-all duration-200 group text-center"
           >
             <div className="relative w-[260px] h-[86px] mb-3 mx-auto opacity-90 group-hover:opacity-100 transition-opacity">
               <Image src="/images/mcs2-logo.png" alt="Mid City Sound Studios" fill className="object-contain object-left" sizes="300px" />
@@ -100,13 +100,12 @@ export function Footer() {
             href="https://donaldmarkowitz.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between p-3 border border-studio-border/40 rounded-sm hover:border-gold/30 group transition-all"
+            className="flex items-center justify-center gap-3 p-3 border border-studio-border/40 rounded-sm hover:border-gold/30 group transition-all duration-200 text-center"
           >
             <div>
               <p className="text-cream text-xs font-medium group-hover:text-gold transition-colors">Donald Markowitz</p>
               <p className="text-mist/50 text-[10px]">Producer · Composer · Founder</p>
             </div>
-            <ExternalLink className="w-3.5 h-3.5 text-mist/30 group-hover:text-gold transition-colors" />
           </Link>
         </div>
       </div>

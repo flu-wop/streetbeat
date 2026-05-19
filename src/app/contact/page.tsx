@@ -24,7 +24,7 @@ export default function ContactPage() {
   }
   return (
     <div className="pt-16 min-h-screen bg-studio-black">
-      <section className="py-20 px-6 border-b border-studio-border/40 bg-studio-charcoal">
+      <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-studio-border/40 bg-studio-charcoal">
         <div className="mx-auto max-w-4xl">
           <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">Contact</Badge>
           <h1 className="font-display text-5xl md:text-6xl text-cream mb-4 leading-tight">Get in touch</h1>
@@ -33,7 +33,7 @@ export default function ContactPage() {
           </p>
         </div>
       </section>
-      <section className="py-16 px-6">
+      <section className="py-12 sm:py-16 px-4 sm:px-6">
         <div className="mx-auto max-w-4xl grid md:grid-cols-[260px_1fr] gap-14">
           <div className="space-y-6">
             <div>

@@ -26,7 +26,7 @@ export default function AboutPage() {
     <div className="pt-16 min-h-screen bg-studio-black">
 
       {/* ── Header ── */}
-      <section className="py-20 px-6 border-b border-studio-border/40 bg-studio-charcoal">
+      <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-studio-border/40 bg-studio-charcoal">
         <div className="mx-auto max-w-4xl">
           <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">About the Film</Badge>
           <h1 className="font-display text-5xl md:text-6xl text-cream mb-4 leading-tight">
@@ -40,7 +40,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Story ── */}
-      <section className="py-20 px-6">
+      <section className="py-14 sm:py-20 px-4 sm:px-6">
         <div className="mx-auto max-w-4xl grid md:grid-cols-[1fr_280px] gap-14">
           <div className="space-y-6">
             <div className="flex items-center gap-2.5 mb-6">
