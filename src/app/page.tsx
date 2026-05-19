@@ -247,9 +247,9 @@ export default function HomePage() {
             </div>
 
             {/* Credits card */}
-            <div className="border border-studio-border rounded-sm bg-studio-card overflow-hidden">
+            <div className="border border-studio-border rounded-sm bg-studio-card overflow-hidden text-center sm:text-left">
               <div className="p-5 border-b border-studio-border">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-gold/70 font-medium">Film Credits</p>
+                <p className="text-[10px] tracking-[0.2em] uppercase text-gold/70 font-medium text-center sm:text-left">Film Credits</p>
               </div>
               <div className="divide-y divide-studio-border">
                 {CREDITS.map(({ role, name }) => (
@@ -262,7 +262,7 @@ export default function HomePage() {
               <div className="p-5 border-t border-studio-border bg-studio-dark">
                 <div className="flex items-center gap-2">
                   <Award className="w-4 h-4 text-gold/50 shrink-0" />
-                  <p className="text-mist text-xs">A film about the sound New Orleans gave the world</p>
+                  <p className="text-mist text-xs text-center sm:text-left">A film about the sound New Orleans gave the world</p>
                 </div>
               </div>
             </div>
