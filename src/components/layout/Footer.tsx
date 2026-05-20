@@ -1,3 +1,5 @@
+// src/components/layout/Footer.tsx — 2-col desktop matching DM footer style
+
 import Link  from "next/link";
 import Image from "next/image";
 import { Instagram, ExternalLink } from "lucide-react";
@@ -18,12 +20,13 @@ const SOCIALS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-studio-border bg-studio-charcoal">
+    <footer className="border-t border-studio-border/50 bg-studio-charcoal">
 
-      <div className="mx-auto max-w-6xl px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+      {/* ── 2-col on desktop, stacked centered on mobile ── */}
+      <div className="mx-auto max-w-6xl px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-12">
 
-        {/* ── Brand column ── */}
-        <div className="space-y-5 md:col-span-1 text-center md:text-left">
+        {/* ── Left: Brand + bio + socials ── */}
+        <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-5">
           <div>
             <p className="font-display text-2xl text-cream tracking-wide">Street Beat</p>
             <p className="font-display text-lg text-gold/70 italic font-light">Drumming Below Sea Level</p>
@@ -31,11 +34,12 @@ export function Footer() {
               A Mid City Sound Production
             </p>
           </div>
-          <p className="text-mist text-sm leading-relaxed md:max-w-xs mx-auto md:mx-0">
+          <p className="text-mist text-sm leading-relaxed max-w-sm">
             A documentary film exploring the unique drum sound of New Orleans —
             produced by Mid City Sound &amp; Fire on the Bayou, hosted by Doug Belote.
           </p>
-          <div className="space-y-2 pt-1">
+          {/* Instagram handles */}
+          <div className="space-y-2">
             <p className="text-[10px] tracking-[0.18em] uppercase text-gold/60">Follow on Instagram</p>
             {SOCIALS.map(({ label, href }) => (
               <a
@@ -52,58 +56,58 @@ export function Footer() {
           </div>
         </div>
 
-        {/* ── Film links ── */}
-        <div className="space-y-4 text-center md:text-left">
-          <p className="text-[10px] font-medium tracking-[0.18em] uppercase text-gold/70">Film</p>
-          <ul className="space-y-2.5">
+        {/* ── Right: Nav + Donald + MCS block ── */}
+        <div className="flex flex-col items-center md:items-end gap-8">
+
+          {/* Nav links — horizontal row */}
+          <nav className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
             {SITE_LINKS.map(({ label, href }) => (
-              <li key={label}>
-                <Link href={href} className="text-sm text-mist hover:text-cream transition-colors">
-                  {label}
-                </Link>
-              </li>
+              <Link key={label} href={href} className="text-sm text-mist hover:text-cream transition-colors">
+                {label}
+              </Link>
             ))}
-          </ul>
-        </div>
+          </nav>
 
-        {/* ── Production ── */}
-        <div className="space-y-4 text-center">
-          <p className="text-[10px] font-medium tracking-[0.18em] uppercase text-gold/70">Production</p>
-
+          {/* MCS studio block — compact inline style matching DM */}
           <Link
             href="https://midcitysound.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full p-4 border border-studio-border/60 rounded-sm hover:border-gold/40 transition-all duration-200 group"
+            className="flex items-center gap-4 p-4 border border-studio-border/60 rounded-sm hover:border-gold/40 transition-all group w-full md:max-w-xs"
           >
-            <div className="flex justify-center mb-3">
-              <div className="relative w-[200px] h-[66px] opacity-90 group-hover:opacity-100 transition-opacity">
-                <Image
-                  src="/images/mcs2-logo.png"
-                  alt="Mid City Sound Studios"
-                  fill
-                  className="object-contain object-center"
-                  sizes="200px"
-                />
-              </div>
+            <div className="relative w-[60px] h-[60px] shrink-0 opacity-80 group-hover:opacity-100 transition-opacity">
+              <Image
+                src="/images/mcs2-logo.png"
+                alt="Mid City Sound Studios"
+                fill
+                className="object-contain object-center"
+                sizes="60px"
+              />
             </div>
-            <p className="text-mist text-xs leading-relaxed group-hover:text-cream transition-colors">
-              The studio behind the sound. Book studio sessions in New Orleans.
-            </p>
-            <div className="flex items-center justify-center gap-1.5 mt-3 text-gold/50 text-[10px] group-hover:text-gold transition-colors">
-              <span>midcitysound.com</span>
-              <ExternalLink className="w-3 h-3" />
+            <div>
+              <p className="text-cream text-xs font-medium group-hover:text-gold transition-colors">Mid City Sound Studios</p>
+              <p className="text-mist/50 text-[10px] mt-0.5">The studio behind the film.</p>
+              <p className="text-mist/40 text-[10px]">midcitysound.com</p>
             </div>
+            <ExternalLink className="w-3 h-3 text-gold/30 ml-auto group-hover:text-gold transition-colors" />
           </Link>
 
+          {/* Donald Markowitz link */}
           <Link
             href="https://donaldmarkowitz.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex flex-col items-center p-3 border border-studio-border/40 rounded-sm hover:border-gold/30 group transition-all duration-200"
+            className="flex items-center gap-4 p-4 border border-studio-border/40 rounded-sm hover:border-gold/30 transition-all group w-full md:max-w-xs"
           >
-            <p className="text-cream text-xs font-medium group-hover:text-gold transition-colors">Donald Markowitz</p>
-            <p className="text-mist/50 text-[10px]">Producer · Composer · Founder</p>
+            <div className="w-[60px] text-center shrink-0">
+              <p className="text-gold/50 font-display text-lg leading-none">DM</p>
+            </div>
+            <div>
+              <p className="text-cream text-xs font-medium group-hover:text-gold transition-colors">Donald Markowitz</p>
+              <p className="text-mist/50 text-[10px] mt-0.5">Producer · Composer · Founder</p>
+              <p className="text-mist/40 text-[10px]">donaldmarkowitz.com</p>
+            </div>
+            <ExternalLink className="w-3 h-3 text-gold/30 ml-auto group-hover:text-gold transition-colors" />
           </Link>
         </div>
       </div>
