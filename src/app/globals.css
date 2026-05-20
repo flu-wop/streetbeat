@@ -73,9 +73,17 @@
     min-height: 100svh;
   }
   .pb-16, .pb-20, .pb-24, .pb-28 {
-    padding-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+  .pt-28, .py-28, .py-20 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
   h1 {
-    font-size: clamp(2rem, 8vw, 5rem) !important;
+    font-size: clamp(1.8rem, 7vw, 4rem) !important;
+  }
+  .mx-auto {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
   }
 }

@@ -84,11 +84,11 @@ export default function HomePage() {
 
             {/* Eyebrow */}
             <div
-              className="flex items-center gap-3 mb-5 opacity-0 animate-fade-up delay-200 justify-center"
+              className="flex items-center gap-3 mb-5 opacity-0 animate-fade-up delay-200 justify-center flex-nowrap"
               style={{ animationFillMode: "forwards" }}
             >
               <div className="w-8 h-px bg-gold/60 hidden sm:block" />
-              <span className="text-[11px] tracking-[0.25em] uppercase text-gold/80 font-sans">
+              <span className="text-[11px] tracking-[0.25em] uppercase text-gold/80 font-sans whitespace-nowrap">
                 Documentary Film · New Orleans · 2025
               </span>
             </div>
