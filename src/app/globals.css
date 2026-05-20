@@ -66,3 +66,16 @@
 }
 
 
+
+/* ── Landscape / horizontal phone support ──────────────────────── */
+@media (max-height: 500px) and (orientation: landscape) {
+  section.min-h-screen {
+    min-height: 100svh;
+  }
+  .pb-16, .pb-20, .pb-24, .pb-28 {
+    padding-bottom: 2rem;
+  }
+  h1 {
+    font-size: clamp(2rem, 8vw, 5rem) !important;
+  }
+}
