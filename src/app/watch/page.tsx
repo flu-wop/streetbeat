@@ -1,5 +1,5 @@
 // src/app/watch/page.tsx — PURCHASE / PAYWALL PAGE
-// Single price: $5.00 Own Forever. Rental option removed.
+// Single price: $10.00 Own Forever. Rental option removed.
 //
 // STRIPE INTEGRATION:
 //   Create /app/api/checkout/route.ts:
@@ -129,7 +129,7 @@ export default function WatchPage() {
                 </div>
                 <div>
                   <p className="font-display text-2xl text-cream">Purchase to Watch</p>
-                  <p className="text-mist text-sm mt-1">$5.00 · One-time purchase · No subscription.</p>
+                  <p className="text-mist text-sm mt-1">$10.00 · One-time purchase · No subscription.</p>
                 </div>
               </div>
             </div>
@@ -144,7 +144,7 @@ export default function WatchPage() {
                 {/* Price */}
                 <div className="text-center space-y-2">
                   <p className="font-display text-7xl text-gold leading-none">
-                    $5<span className="text-4xl text-gold/70">.00</span>
+                    $10<span className="text-4xl text-gold/70">.00</span>
                   </p>
                   <p className="text-mist text-sm">One-time · Own forever · No subscription</p>
                 </div>
@@ -186,7 +186,7 @@ export default function WatchPage() {
                       Processing…
                     </span>
                   ) : (
-                    <><ShoppingCart className="w-5 h-5" />Purchase for $5.00</>
+                    <><ShoppingCart className="w-5 h-5" />Purchase for $10.00</>
                   )}
                 </button>
 

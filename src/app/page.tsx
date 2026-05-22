@@ -1,7 +1,7 @@
 // src/app/page.tsx — Street Beat: Drumming Below Sea Level
 // ─────────────────────────────────────────────────────────────────────────────
 // Full rebuild matching Mid City Sound dark/gold luxury aesthetic.
-// Single purchase price: $5.00 Own Forever. Rental removed.
+// Single purchase price: $10.00 Own Forever. Rental removed.
 // Hero uses poster image with cinematic dark overlay.
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "Street Beat: Drumming Below Sea Level | Documentary Film",
   description:
     "A 54-minute documentary exploring the unique drum sound of New Orleans. " +
-    "Produced by Mid City Sound & Fire on the Bayou. Own forever for $5.00.",
+    "Produced by Mid City Sound & Fire on the Bayou. Own forever for $10.00.",
   openGraph: {
     images: [{ url: "/images/streetbeat-poster.png", width: 1280, height: 720 }],
   },
@@ -143,7 +143,7 @@ export default function HomePage() {
                 className="inline-flex items-center justify-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
               >
                 <ShoppingCart className="w-4 h-4" />
-                Purchase for $5.00
+                Purchase for $10.00
               </Link>
               {/* Secondary — trailer */}
               <a
@@ -202,7 +202,7 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
             >
               <ShoppingCart className="w-4 h-4" />
-              Purchase for $5.00
+              Purchase for $10.00
             </Link>
           </div>
         </div>
