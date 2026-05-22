@@ -1,8 +1,10 @@
-// src/app/about/page.tsx — About the film, combined layout
+// src/app/about/page.tsx — Street Beat: About the Film
+// Updated with drummer photos (drummer1.jpg, drummer2.jpg, misha-brass-bands.JPG, misha2.JPG)
 
 import type { Metadata } from "next"
 import Link              from "next/link"
-import { Film, Music, Users, MapPin, Clock } from "lucide-react"
+import Image             from "next/image"
+import { Film, Music, Users, MapPin, Clock, ShoppingCart } from "lucide-react"
 import { Button }    from "@/components/ui/button"
 import { Badge }     from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -17,6 +19,13 @@ const FACTS = [
   { icon: MapPin, label: "Location", value: "New Orleans, Louisiana" },
   { icon: Music,  label: "Studio",   value: "Mid City Sound Studios" },
   { icon: Users,  label: "Host",     value: "Doug Belote" },
+]
+
+const DRUMMER_PHOTOS = [
+  { file: "drummer1.jpg",          alt: "New Orleans drummer",        caption: "The Tradition" },
+  { file: "drummer2.jpg",          alt: "New Orleans drummer",        caption: "The Groove" },
+  { file: "misha-brass-bands.JPG", alt: "Brass band drumming, NOLA",  caption: "The Brass Band" },
+  { file: "misha2.JPG",            alt: "Percussion in New Orleans",  caption: "The Street" },
 ]
 
 export default function AboutPage() {
@@ -37,12 +46,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Combined story + facts ── */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6">
+      {/* ── Facts strip ── */}
+      <section className="py-10 px-4 sm:px-6 border-b border-studio-border/40">
         <div className="mx-auto max-w-4xl">
-
-          {/* Facts strip — horizontal on desktop, 2-col grid on mobile */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-12">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {FACTS.map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex flex-col items-center sm:items-start text-center sm:text-left p-4 border border-studio-border rounded-sm bg-studio-card gap-2">
                 <Icon className="w-4 h-4 text-gold/60" />
@@ -53,8 +60,46 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Origin story */}
+      {/* ── Drummer photo grid ── */}
+      <section className="py-14 sm:py-20 px-4 sm:px-6 border-b border-studio-border/40">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-10">
+            <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">
+              The Drummers
+            </Badge>
+            <h2 className="font-display text-3xl text-cream leading-tight">
+              The Heartbeat of<br />
+              <span className="text-gold-gradient italic">New Orleans</span>
+            </h2>
+            <Separator className="w-10 bg-gold/40 mt-4" />
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 auto-rows-[200px]">
+            {DRUMMER_PHOTOS.map(({ file, alt, caption }) => (
+              <div key={file} className="relative group overflow-hidden rounded-sm">
+                <Image
+                  src={`/images/${file}`}
+                  alt={alt}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-studio-black/80 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 p-3">
+                  <p className="text-cream text-xs font-medium">{caption}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Origin story ── */}
+      <section className="py-14 sm:py-20 px-4 sm:px-6">
+        <div className="mx-auto max-w-4xl">
           <div className="space-y-5">
             <div className="flex items-center gap-2.5">
               <Film className="w-4 h-4 text-gold/60" />
@@ -90,7 +135,10 @@ export default function AboutPage() {
 
             <div className="flex flex-col sm:flex-row gap-3 pt-4 items-center sm:items-start">
               <Button asChild>
-                <Link href="/watch">Watch the Film →</Link>
+                <Link href="/watch">
+                  <ShoppingCart className="w-4 h-4 mr-2" />
+                  Watch the Film — $5.00
+                </Link>
               </Button>
               <Button variant="outline" asChild>
                 <Link href="/contact">Contact</Link>
