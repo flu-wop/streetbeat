@@ -17,33 +17,23 @@
 
 "use client"
 
-import { useState }   from "react"
 import Link           from "next/link"
 import Image          from "next/image"
 import {
-  Play, Lock, CheckCircle2, Clock,
-  ShieldCheck, CreditCard, Apple,
-  Monitor, Captions, ShoppingCart,
+  Lock, CheckCircle2, Clock,
+  ShieldCheck, Monitor, ShoppingCart,
 } from "lucide-react"
 import { Button }    from "@/components/ui/button"
 import { Badge }     from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { cn }        from "@/lib/utils"
+
+const SQUARESPACE_URL = "https://www.streetbeat.video/pay-link/4368252c-2852-41cb-8637-7c91111eae79"
 
 export default function WatchPage() {
-  const [loading,   setLoading]   = useState(false)
-  const [hasAccess, setHasAccess] = useState(false) // ← set from cookie/JWT verification
+  const hasAccess = false // ← set from cookie/JWT verification after purchase
 
-  async function handlePurchase() {
-    setLoading(true)
-    // ── STRIPE: wire up when ready ────────────────────────────────────────
-    // const res = await fetch("/api/checkout", { method: "POST" })
-    // const { url } = await res.json()
-    // window.location.href = url
-    // ─────────────────────────────────────────────────────────────────────
-    // TODO: remove this alert and uncomment the Stripe block above
-    setLoading(false)
-    alert("Stripe checkout coming soon. Payment not yet enabled.")
+  function handlePurchase() {
+    window.location.href = SQUARESPACE_URL
   }
 
   return (
@@ -149,52 +139,19 @@ export default function WatchPage() {
                   <p className="text-mist text-sm">One-time · Own forever · No subscription</p>
                 </div>
 
-                {/* Apple Pay / Google Pay placeholders */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <button onClick={handlePurchase}
-                    className="h-12 bg-studio-black border border-studio-border rounded-sm flex items-center justify-center gap-2 text-cream hover:border-gold/40 transition-all text-sm font-medium">
-                    <Apple className="w-5 h-5" /> Apple Pay
-                  </button>
-                  <button onClick={handlePurchase}
-                    className="h-12 bg-studio-black border border-studio-border rounded-sm flex items-center justify-center gap-2 text-cream hover:border-gold/40 transition-all text-sm font-medium">
-                    <span className="text-base font-semibold">G</span> Google Pay
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-3 text-mist/40">
-                  <div className="flex-1 h-px bg-studio-border" />
-                  <span className="text-[11px]">or pay with card</span>
-                  <div className="flex-1 h-px bg-studio-border" />
-                </div>
-
-                {/* Card input placeholder */}
-                <div className="border border-dashed border-studio-border/50 rounded-sm p-4 text-center">
-                  <p className="text-mist/40 text-[11px]">
-                    Wire up Stripe Elements or use a Stripe Payment Link — see comments in watch/page.tsx
-                  </p>
-                </div>
-
                 {/* Main CTA */}
                 <button
                   onClick={handlePurchase}
-                  disabled={loading}
-                  className="w-full h-14 bg-gold text-studio-black text-[14px] font-bold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-all duration-200 disabled:opacity-60 flex items-center justify-center gap-2 active:scale-[0.98]"
+                  className="w-full h-14 bg-gold text-studio-black text-[14px] font-bold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
                 >
-                  {loading ? (
-                    <span className="flex items-center gap-2">
-                      <div className="w-4 h-4 border-2 border-studio-black/30 border-t-studio-black rounded-full animate-spin" />
-                      Processing…
-                    </span>
-                  ) : (
-                    <><ShoppingCart className="w-5 h-5" />Purchase for $10.00</>
-                  )}
+                  <ShoppingCart className="w-5 h-5" />
+                  Purchase for $10.00
                 </button>
 
                 {/* Trust signals */}
                 <div className="flex flex-wrap justify-center gap-5 text-mist/50 text-xs pt-1">
                   {[
                     { icon: ShieldCheck, text: "Secure payment" },
-                    { icon: CreditCard,  text: "Powered by Stripe" },
                     { icon: Monitor,     text: "Any device" },
                   ].map(({ icon: Icon, text }) => (
                     <div key={text} className="flex items-center gap-1.5">
