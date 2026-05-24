@@ -1,5 +1,4 @@
 // src/app/about/page.tsx — Street Beat: About the Film
-// Updated with drummer photos (drummer1.jpg, drummer2.jpg, misha-brass-bands.JPG, misha2.JPG)
 
 import type { Metadata } from "next"
 import Link              from "next/link"
@@ -21,11 +20,23 @@ const FACTS = [
   { icon: Users,  label: "Host",     value: "Doug Belote" },
 ]
 
-const DRUMMER_PHOTOS = [
-  { file: "drummer1.jpg",          alt: "New Orleans drummer",        caption: "The Tradition" },
-  { file: "drummer2.jpg",          alt: "New Orleans drummer",        caption: "The Groove" },
-  { file: "misha-brass-bands.JPG", alt: "Brass band drumming, NOLA",  caption: "The Brass Band" },
-  { file: "misha2.JPG",            alt: "Percussion in New Orleans",  caption: "The Street" },
+const DRUMMER_PHOTOS: { file: string | null; alt: string }[] = [
+  { file: "IMG_1152.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_1190.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_1230.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_1243.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_1957.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_1975.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_2011.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_4045.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_4073.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_4079.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_4241.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_4247.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_4250.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_4256.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_4907.jpg", alt: "New Orleans drummer" },
+  { file: "IMG_4912.jpg", alt: "New Orleans drummer" },
 ]
 
 export default function AboutPage() {
@@ -63,9 +74,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Drummer photo grid ── */}
+      {/* ── Drummer photo grid — 16 slots ── */}
       <section className="py-14 sm:py-20 px-4 sm:px-6 border-b border-studio-border/40">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-6xl">
           <div className="mb-10">
             <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">
               The Drummers
@@ -77,9 +88,12 @@ export default function AboutPage() {
             <Separator className="w-10 bg-gold/40 mt-4" />
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 auto-rows-[200px]">
-            {DRUMMER_PHOTOS.map(({ file, alt, caption }) => (
-              <div key={file} className="relative group overflow-hidden rounded-sm">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 auto-rows-[180px]">
+            {DRUMMER_PHOTOS.map(({ file, alt }, i) => (
+              <div
+                key={i}
+                className="relative group overflow-hidden rounded-sm bg-studio-dark border border-studio-border/40"
+              >
                 <Image
                   src={`/images/${file}`}
                   alt={alt}
@@ -87,10 +101,6 @@ export default function AboutPage() {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 640px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-studio-black/80 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 p-3">
-                  <p className="text-cream text-xs font-medium">{caption}</p>
-                </div>
               </div>
             ))}
           </div>
@@ -137,7 +147,7 @@ export default function AboutPage() {
               <Button asChild>
                 <Link href="/watch">
                   <ShoppingCart className="w-4 h-4 mr-2" />
-                  Watch the Film — $5.00
+                  Watch the Film — $10.00
                 </Link>
               </Button>
               <Button variant="outline" asChild>
