@@ -34,10 +34,10 @@ export function Footer() {
             href="https://www.instagram.com/dougbelote/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-xs text-mist hover:text-gold transition-colors"
+            className="text-mist hover:text-gold transition-colors"
+            aria-label="Doug Belote on Instagram"
           >
-            <Instagram className="w-4 h-4 shrink-0" />
-            @dougbelote
+            <Instagram className="w-5 h-5" />
           </a>
         </div>
 
