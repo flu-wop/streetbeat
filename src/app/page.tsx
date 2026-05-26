@@ -1,762 +1,306 @@
-'use client'
+// src/app/page.tsx — Street Beat: Drumming Below Sea Level
+// ─────────────────────────────────────────────────────────────────────────────
+// Full rebuild matching Mid City Sound dark/gold luxury aesthetic.
+// Single purchase price: $10.00 Own Forever. Rental removed.
+// Hero uses poster image with cinematic dark overlay.
+// ─────────────────────────────────────────────────────────────────────────────
 
-import { useEffect, useRef, useState } from 'react'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
+import type { Metadata } from "next"
+import Link              from "next/link"
+import Image             from "next/image"
+import {
+  Play, ArrowRight, Clock, Film,
+  MapPin, ChevronDown, Award,
+  ShoppingCart, Shield, Monitor, Captions,
+} from "lucide-react"
+import { Button }    from "@/components/ui/button"
+import { Badge }     from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
 
-const MERCH_URL = 'https://midcitysound.com/merch'
-
-// ── Teaser products — all link to unified store ───────────────────────────────
-const teaserProducts = [
-  {
-    name: 'Rotary Chaos Tee',
-    label: 'Lil Squiggle',
-    price: '$28',
-    desc: 'Vintage-washed heavyweight. Squiggle mid-dial, full chaos.',
-    tag: 'Best Seller',
-    color: 'var(--green)',
-    accent: true,
+export const metadata: Metadata = {
+  title: "Street Beat: Drumming Below Sea Level | Documentary Film",
+  description:
+    "A 54-minute documentary exploring the unique drum sound of New Orleans. " +
+    "Produced by Mid City Sound & Fire on the Bayou. Own forever for $10.00.",
+  openGraph: {
+    images: [{ url: "/images/streetbeat-poster.png", width: 1280, height: 720 }],
   },
-  {
-    name: 'Flip Fails Hoodie',
-    label: 'Lil Squiggle',
-    price: '$55',
-    desc: 'Premium fleece. The flip phone era, distilled into one cozy statement.',
-    tag: 'Limited',
-    color: 'var(--gold)',
-    accent: false,
-  },
-  {
-    name: 'Mid City Sound Dad Hat',
-    label: 'Mid City Sound',
-    price: '$32',
-    desc: 'Unstructured six-panel. Studio-issue. Worn by the people who made the record.',
-    tag: 'New',
-    color: 'var(--gold)',
-    accent: false,
-  },
-  {
-    name: 'Streetbeats Vol. I Crewneck',
-    label: 'Streetbeats',
-    price: '$60',
-    desc: 'Heavyweight French terry. Three brands. One crew. Infinite regret.',
-    tag: '',
-    color: 'var(--gold)',
-    accent: false,
-  },
-]
-
-// ── Era timeline ─────────────────────────────────────────
-const eras = [
-  {
-    decade: '70s',
-    device: 'Rotary Phone',
-    glyph: '📞',
-    desc: "Squiggle spins the dial. Avocado-green kitchen. Same mistake, analog edition.",
-  },
-  {
-    decade: '90s',
-    device: 'Flip Phone',
-    glyph: '📱',
-    desc: 'The satisfying snap of a flip. The unsatisfying aftermath of a 2am call.',
-  },
-  {
-    decade: 'Now',
-    device: 'Smartphone',
-    glyph: '📲',
-    desc: 'Face ID. Read receipts. Zero excuses. Maximum regret.',
-  },
-]
-
-// ── Section reveal hook ───────────────────────────────────
-function useReveal(threshold = 0.15) {
-  const ref = useRef<HTMLElement>(null)
-  const [revealed, setRevealed] = useState(false)
-  useEffect(() => {
-    if (!ref.current) return
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setRevealed(true); obs.disconnect() } },
-      { threshold }
-    )
-    obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [threshold])
-  return { ref, revealed }
 }
 
-// ── Audio toggle ─────────────────────────────────────────
-function AudioToggle() {
-  const audioRef = useRef<HTMLAudioElement>(null)
-  const [playing, setPlaying] = useState(false)
+const CREDITS = [
+  { role: "Produced by",  name: "Mid City Sound Studios" },
+  { role: "Produced by",  name: "Fire on the Bayou" },
+  { role: "Produced by",  name: "Doreja Productions" },
+  { role: "Hosted by",    name: "Doug Belote" },
+  { role: "Runtime",      name: "54 minutes" },
+  { role: "Released",     name: "2025" },
+]
 
-  const toggle = () => {
-    const audio = audioRef.current
-    if (!audio) return
-    if (playing) { audio.pause() } else { audio.play().catch(() => {}) }
-    setPlaying(!playing)
-  }
-
+export default function HomePage() {
   return (
     <>
-      <audio ref={audioRef} src="/audio/dont-drink-and-dial.wav" loop />
-      <button
-        onClick={toggle}
-        className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 animate-pulse-gold"
-        style={{
-          background: 'rgba(9,9,9,0.85)',
-          border: '1px solid rgba(212,175,119,0.4)',
-          backdropFilter: 'blur(12px)',
-          color: 'var(--gold)',
-        }}
-        aria-label={playing ? 'Pause music' : 'Play music'}
-      >
-        {playing ? (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 9v6m6-6v6M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z" />
-          </svg>
-        )}
-      </button>
-    </>
-  )
-}
+      {/* ════════════════════════════════════════════════════════════════ */}
+      {/* 1. HERO — poster background, cinematic overlay, bottom-anchored  */}
+      {/* ════════════════════════════════════════════════════════════════ */}
+      <section className="relative min-h-screen flex items-end overflow-hidden">
 
-// ── Page ─────────────────────────────────────────────────
-export default function Home() {
-  const storyReveal = useReveal()
-  const shopReveal  = useReveal()
-  const ugcReveal   = useReveal()
-
-  return (
-    <>
-      <Navbar />
-      <AudioToggle />
-
-      {/* ═══════════════════════════════ HERO ══════════════════════════════ */}
-      <section
-        className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden noise-overlay"
-        style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 0%, #1a1510 0%, var(--black) 65%)',
-        }}
-      >
-        {/* Ambient glow */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse 60% 40% at 50% 120%, rgba(29,158,117,0.08) 0%, transparent 70%)',
-          }}
+        {/*
+          ── Poster image background ──────────────────────────────────────
+          File: public/images/streetbeat-poster.png
+          If the file doesn't exist yet, the gradient fallback shows instead.
+          When you add the poster, the Image component takes over automatically.
+        */}
+        <Image
+          src="/images/streetbeat-poster.png"
+          alt="Street Beat: Drumming Below Sea Level"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
         />
 
-        {/* Hero BG image */}
+        {/* Dark overlay — 75% black so poster is recognizable but not overpowering */}
+        <div className="absolute inset-0 bg-studio-black/25" />
+
+        {/* Gold gradient wash — rises from bottom, frames the text */}
+        <div className="absolute inset-0 bg-gradient-to-t from-studio-black via-studio-black/30 to-transparent" />
+
+        {/* Warm gold ambient glow — bottom left */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_20%_85%,rgba(212,175,119,0.12),transparent)]" />
+
+        {/* Film grain */}
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: 'url(/images/hero-bg.jpg)' }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, rgba(9,9,9,0.3) 0%, rgba(9,9,9,0.6) 60%, var(--black) 100%)' }}
+          className="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none"
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E")` }}
         />
 
-        {/* Content */}
-        <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
+        {/* Cinematic letterbox bars */}
+        <div className="absolute top-0 left-0 right-0 h-5 bg-studio-black z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-5 bg-studio-black z-10" />
 
-          {/* Mid City Sound masthead */}
-          <div className="animate-fade-in mb-5 flex flex-col items-center gap-3">
-            <a
-              href="https://midcitysound.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col items-center gap-2"
+        {/* ── Hero content — bottom-left anchored ── */}
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pb-16 md:pb-24">
+          <div className="max-w-2xl">
+
+            {/* Eyebrow */}
+            <div
+              className="flex items-center gap-3 mb-5 opacity-0 animate-fade-up delay-200 flex-nowrap"
+              style={{ animationFillMode: "forwards" }}
             >
-              {/* Studio wordmark */}
-              <div
-                className="flex items-center gap-3 px-6 py-3 rounded-sm transition-all duration-300 group-hover:border-[rgba(212,175,119,0.5)]"
-                style={{
-                  border: '1px solid rgba(212,175,119,0.3)',
-                  background: 'rgba(9,9,9,0.6)',
-                  backdropFilter: 'blur(12px)',
-                }}
-              >
-                <div className="flex flex-col items-end leading-none">
-                  <span
-                    className="font-display text-xs md:text-sm font-semibold uppercase tracking-[0.35em]"
-                    style={{ color: 'var(--gold)' }}
-                  >
-                    Mid City Sound
-                  </span>
-                  <span
-                    className="text-[8px] uppercase tracking-[0.5em] mt-0.5"
-                    style={{ color: 'var(--gold-dim)' }}
-                  >
-                    Studios
-                  </span>
-                </div>
-                <div className="w-px h-8 mx-1" style={{ background: 'rgba(212,175,119,0.25)' }} />
-                <span
-                  className="font-display text-base md:text-lg italic font-light tracking-widest"
-                  style={{ color: 'var(--mist)' }}
-                >
-                  Presents
-                </span>
-              </div>
-              <span
-                className="text-[9px] uppercase tracking-[0.4em] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ color: 'var(--gold-dim)' }}
-              >
-                midcitysound.com ↗
+              <div className="w-8 h-px bg-gold/60 hidden sm:block" />
+              <span className="text-[11px] tracking-[0.25em] uppercase text-gold/80 font-sans whitespace-nowrap">
+                Documentary Film · New Orleans · 2025
               </span>
-            </a>
-            {/* Green Squiggle dot accent */}
-            <div className="flex items-center gap-2">
-              <div className="w-px h-3" style={{ background: 'rgba(29,158,117,0.4)' }} />
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--green)' }} />
-              <div className="w-px h-3" style={{ background: 'rgba(29,158,117,0.4)' }} />
             </div>
-          </div>
 
-          {/* Headline */}
-          <h1
-            className="font-display animate-fade-up delay-100 text-gold-gradient leading-none tracking-tight"
-            style={{ fontSize: 'clamp(3rem, 10vw, 8rem)', fontWeight: 600 }}
-          >
-            Don't Drink
-            <br />
-            <span className="italic font-light">&amp; Dial</span>
-          </h1>
-
-          {/* Subtitle */}
-          <p
-            className="animate-fade-up delay-200 font-display text-base md:text-xl italic font-light mt-4 tracking-widest"
-            style={{ color: 'var(--mist)' }}
-          >
-            Decades
-          </p>
-
-          {/* Divider */}
-          <div className="animate-fade-up delay-300 flex items-center gap-4 my-6 md:my-8">
-            <div className="gold-divider" />
-            <span className="text-[10px] uppercase tracking-[0.4em]" style={{ color: 'var(--gold-dim)' }}>
-              One call. Every era. Same regret.
-            </span>
-            <div className="gold-divider" />
-          </div>
-
-          {/* CTAs */}
-          <div className="animate-fade-up delay-400 flex flex-col sm:flex-row gap-3 mt-2">
-            <a
-              href={MERCH_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold text-[#090909] font-semibold text-xs uppercase tracking-[0.2em] px-8 py-4 rounded-sm"
+            {/* Title */}
+            <h1
+              className="font-display mb-4 opacity-0 animate-fade-up delay-300 text-center sm:text-left"
+              style={{ animationFillMode: "forwards" }}
             >
-              Shop the Drop ↗
-            </a>
-            <a
-              href="#story"
-              className="btn-outline-gold text-xs uppercase tracking-[0.2em] px-8 py-4 rounded-sm"
-              style={{ color: 'var(--cream)' }}
+              <span className="block text-[clamp(48px,8vw,96px)] text-cream leading-[0.9]">
+                Street Beat
+              </span>
+              <span className="block text-[clamp(18px,3vw,36px)] text-gold-gradient italic font-light tracking-wide mt-2">
+                Drumming Below Sea Level
+              </span>
+            </h1>
+
+            {/* Logline */}
+            <p
+              className="text-mist text-base md:text-lg max-w-md leading-relaxed mb-7 font-light opacity-0 animate-fade-up delay-400 text-center sm:text-left"
+              style={{ animationFillMode: "forwards" }}
             >
-              The Story ↓
-            </a>
-          </div>
+              What is the New Orleans drum sound? NOLA's most influential drummers
+              answer the question the city has been asking for a hundred years.
+            </p>
 
-          {/* Store sub-note */}
-          <p
-            className="animate-fade-up delay-500 text-[10px] uppercase tracking-[0.25em] mt-4"
-            style={{ color: 'var(--gold-dim)' }}
-          >
-            Lil Squiggle &middot; Mid City Sound &middot; Streetbeats
-          </p>
+            {/* Meta strip */}
+            <div
+              className="flex flex-wrap items-center gap-4 mb-8 opacity-0 animate-fade-up delay-500 justify-center sm:justify-start"
+              style={{ animationFillMode: "forwards" }}
+            >
+              {[
+                { icon: Clock,  text: "54 minutes" },
+                { icon: MapPin, text: "New Orleans, Louisiana" },
+                { icon: Film,   text: "Mid City Sound Production" },
+              ].map(({ icon: Icon, text }) => (
+                <div key={text} className="flex items-center gap-1.5 text-mist text-xs">
+                  <Icon className="w-3.5 h-3.5 text-gold/60" />
+                  <span>{text}</span>
+                </div>
+              ))}
+            </div>
 
-          {/* Video embed */}
-          <div className="animate-fade-up delay-600 w-full max-w-2xl mt-12 md:mt-16">
-            <div className="video-frame aspect-video w-full">
-              <video
-                src="/video/flip-fails-1.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between z-10">
-                <span
-                  className="text-[10px] uppercase tracking-[0.2em] px-2 py-1 rounded-sm"
-                  style={{ background: 'rgba(9,9,9,0.7)', color: 'var(--gold)', backdropFilter: 'blur(8px)' }}
-                >
-                  Official PSA
-                </span>
-                <span
-                  className="text-[10px] uppercase tracking-[0.2em] px-2 py-1 rounded-sm"
-                  style={{ background: 'rgba(9,9,9,0.7)', color: 'var(--mist)', backdropFilter: 'blur(8px)' }}
-                >
-                  #DontDrinkAndDialDecades
-                </span>
-              </div>
+            {/* CTAs */}
+            <div
+              className="flex flex-col sm:flex-row gap-3 opacity-0 animate-fade-up delay-700 items-center sm:items-start"
+              style={{ animationFillMode: "forwards" }}
+            >
+              {/* Primary — purchase */}
+              <Link
+                href="/watch"
+                className="inline-flex items-center justify-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
+              >
+                <ShoppingCart className="w-4 h-4" />
+                Purchase for $10.00
+              </Link>
+              {/* Secondary — trailer */}
+              <a
+                href="#trailer"
+                className="inline-flex items-center justify-center gap-2 h-12 px-8 border border-cream/30 text-cream text-[13px] font-medium tracking-wide uppercase rounded-sm hover:border-gold/60 hover:text-gold transition-colors"
+              >
+                <Play className="w-4 h-4" />
+                Watch Trailer
+              </a>
             </div>
           </div>
         </div>
 
         {/* Scroll cue */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-float">
-          <span className="text-[9px] uppercase tracking-[0.4em]" style={{ color: 'var(--gold-dim)' }}>Scroll</span>
-          <div className="w-px h-8" style={{ background: 'linear-gradient(to bottom, var(--gold-dim), transparent)' }} />
+        <div className="absolute bottom-8 right-8 z-20 text-mist/30 flex flex-col items-center gap-1.5">
+          <ChevronDown className="w-4 h-4 animate-bounce" />
         </div>
       </section>
 
-      {/* ════════════════════════════ THE STORY ════════════════════════════ */}
-      <section
-        id="story"
-        ref={storyReveal.ref as React.RefObject<HTMLElement>}
-        className={`section-reveal py-24 md:py-36 px-6 ${storyReveal.revealed ? 'revealed' : ''}`}
-        style={{ background: 'var(--charcoal)' }}
-      >
-        <div className="max-w-6xl mx-auto">
 
-          <div className="flex items-center gap-4 mb-12">
-            <div className="gold-divider" />
-            <span className="text-[10px] uppercase tracking-[0.35em]" style={{ color: 'var(--gold)' }}>
-              The Story
-            </span>
+
+      {/* ════════════════════════════════════════════════════════════════ */}
+      {/* 3. TRAILER EMBED                                                 */}
+      {/* ════════════════════════════════════════════════════════════════ */}
+      <section id="trailer" className="py-20 px-6 bg-studio-black">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center mb-10">
+            <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">
+              Official Trailer
+            </Badge>
+            <h2 className="font-display text-4xl md:text-5xl text-cream">Watch the Trailer</h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="flex flex-col gap-6">
-              <h2
-                className="font-display leading-tight"
-                style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: 'var(--cream)', fontWeight: 500 }}
-              >
-                Meet{' '}
-                <span className="italic text-gold-gradient">Lil Squiggle</span>
-              </h2>
-              <p className="text-base leading-relaxed" style={{ color: 'var(--mist)' }}>
-                He's small, he's chibi, he's got Rasta colors and zero impulse control.
-                Lil Squiggle is the reggae-dub character who somehow finds himself making
-                the worst possible phone call — in every decade, on every device.
-              </p>
-              <p className="text-base leading-relaxed" style={{ color: 'var(--mist)' }}>
-                1970s rotary? He's spinning it. 1990s flip phone? Snap. Modern smartphone
-                with face ID, read receipts, and zero plausible deniability? Also him.
-              </p>
-              <p
-                className="font-display text-xl italic font-light leading-relaxed"
-                style={{ color: 'var(--gold)', borderLeft: '2px solid rgba(212,175,119,0.3)', paddingLeft: '1.25rem' }}
-              >
-                "One call. Every era. Same regret."
-              </p>
-              <div className="flex flex-col gap-1.5 pt-1">
-                <p className="text-xs uppercase tracking-[0.2em]" style={{ color: 'var(--gold-dim)' }}>
-                  A Mid City Sound Production
-                </p>
-                <p className="text-sm" style={{ color: 'var(--mist)' }}>
-                  Written by <span style={{ color: 'var(--cream)' }}>Cash Hollywood & Russ Kunkel</span> · Produced by <span style={{ color: 'var(--cream)' }}>Donald Markowitz & Gary Uffner</span>
-                </p>
-                <p className="text-sm" style={{ color: 'var(--mist)' }}>
-                  Produced by{' '}
-                  <span style={{ color: 'var(--cream)' }}>Donny Markowitz</span>
-                  {' '}&amp;{' '}
-                  <span style={{ color: 'var(--cream)' }}>Gary Uffner</span>
-                </p>
-              </div>
-            </div>
-
-            <div className="relative">
-              <div className="gold-border rounded-sm overflow-hidden" style={{ background: 'var(--charcoal-2)' }}>
-                <img
-                  src="/images/three-eras.png"
-                  alt="Lil Squiggle through three eras"
-                  className="w-full h-full object-cover"
-                  style={{ minHeight: '320px' }}
-                />
-              </div>
-              <div
-                className="absolute -bottom-4 -right-4 px-5 py-3 rounded-sm"
-                style={{ background: 'var(--charcoal-3)', border: '1px solid rgba(212,175,119,0.25)' }}
-              >
-                <p className="text-[9px] uppercase tracking-widest" style={{ color: 'var(--mist)' }}>Campaign</p>
-                <p className="font-display text-sm font-medium" style={{ color: 'var(--gold)' }}>#DontDrinkAndDialDecades</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Era cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-20">
-            {eras.map((era, i) => (
-              <div
-                key={era.decade}
-                className="relative p-6 rounded-sm gold-border flex flex-col gap-3 transition-all duration-300 hover:border-[rgba(212,175,119,0.4)]"
-                style={{ background: 'var(--charcoal-2)', transitionDelay: `${i * 80}ms` }}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-3xl font-semibold italic" style={{ color: 'var(--gold)' }}>
-                    '{era.decade}
-                  </span>
-                  <span className="text-2xl">{era.glyph}</span>
-                </div>
-                <p className="text-[10px] uppercase tracking-[0.25em]" style={{ color: 'var(--green)' }}>
-                  {era.device}
-                </p>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--mist)' }}>
-                  {era.desc}
-                </p>
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-px"
-                  style={{ background: 'linear-gradient(90deg, transparent, rgba(212,175,119,0.2), transparent)' }}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════ SHOP / UNIFIED MERCH ══════════════════════ */}
-      <section
-        id="shop"
-        ref={shopReveal.ref as React.RefObject<HTMLElement>}
-        className={`section-reveal py-24 md:py-36 px-6 noise-overlay relative ${shopReveal.revealed ? 'revealed' : ''}`}
-        style={{
-          background: 'radial-gradient(ellipse 80% 50% at 50% 50%, #131008 0%, var(--black) 70%)',
-        }}
-      >
-        <div className="max-w-6xl mx-auto relative z-10">
-
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-            <div>
-              <div className="flex items-center gap-4 mb-4">
-                <div className="gold-divider" />
-                <span className="text-[10px] uppercase tracking-[0.35em]" style={{ color: 'var(--gold)' }}>
-                  The Drop
-                </span>
-              </div>
-              <h2
-                className="font-display leading-tight"
-                style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: 'var(--cream)', fontWeight: 500 }}
-              >
-                Shop Lil Squiggle
-                <br />
-                <span className="italic text-gold-gradient">+ Mid City Sound Merch</span>
-              </h2>
-              <p className="text-sm mt-4 max-w-md leading-relaxed" style={{ color: 'var(--mist)' }}>
-                Lil Squiggle drops live alongside the full Mid City Sound and Streetbeats
-                collections. One store. Three brands. Limitless regret.
-              </p>
-            </div>
-            <a
-              href={MERCH_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold self-start md:self-end shrink-0 text-[#090909] font-semibold text-xs uppercase tracking-[0.2em] px-8 py-4 rounded-sm"
-            >
-              Shop Everything ↗
-            </a>
-          </div>
-
-          {/* Brand label strip */}
+          {/* YouTube embed — trailer ID: JgqTdAVGwUc */}
           <div
-            className="flex flex-wrap items-center gap-3 mb-10 p-4 rounded-sm"
-            style={{ background: 'rgba(212,175,119,0.04)', border: '1px solid rgba(212,175,119,0.12)' }}
+            className="relative aspect-video rounded-sm overflow-hidden border border-studio-border/60"
+            style={{ boxShadow: "0 0 80px rgba(0,0,0,0.8), 0 0 40px rgba(212,175,119,0.05)" }}
           >
-            <span className="text-[9px] uppercase tracking-[0.3em] mr-1" style={{ color: 'var(--mist)' }}>
-              All at midcitysound.com/merch:
-            </span>
-            {[
-              { brand: 'Lil Squiggle', green: true },
-              { brand: 'Mid City Sound', green: false },
-              { brand: 'Streetbeats', green: false },
-            ].map(({ brand, green }) => (
-              <span
-                key={brand}
-                className="text-[10px] uppercase tracking-[0.2em] px-3 py-1 rounded-full"
-                style={{
-                  background: green ? 'rgba(29,158,117,0.12)' : 'rgba(212,175,119,0.08)',
-                  color: green ? 'var(--green)' : 'var(--gold)',
-                  border: `1px solid ${green ? 'rgba(29,158,117,0.25)' : 'rgba(212,175,119,0.2)'}`,
-                }}
-              >
-                {brand}
-              </span>
-            ))}
+            <iframe
+              src="https://www.youtube.com/embed/JgqTdAVGwUc?rel=0&modestbranding=1&color=white"
+              title="Street Beat: Drumming Below Sea Level — Official Trailer"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            />
           </div>
 
-          {/* Teaser product grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {teaserProducts.map((product) => (
-              <a
-                key={product.name}
-                href={MERCH_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="product-card gold-border rounded-sm p-5 flex flex-col gap-4 group"
-                style={{ background: 'var(--charcoal)', textDecoration: 'none' }}
-              >
-                {/* Placeholder image area */}
-                <div
-                  className="w-full aspect-square rounded-sm flex items-center justify-center relative overflow-hidden"
-                  style={{ background: 'var(--charcoal-2)' }}
-                >
-                  <div className="flex flex-col items-center gap-2 opacity-40">
-                    <div
-                      className="w-14 h-14 rounded-full"
-                      style={{
-                        background: `radial-gradient(circle, ${product.color}33, transparent)`,
-                        border: `1px solid ${product.color}44`,
-                      }}
-                    />
-                  </div>
-                  <span
-                    className="absolute top-3 left-3 text-[9px] uppercase tracking-[0.2em] px-2 py-1 rounded-full"
-                    style={{
-                      background: product.accent ? 'rgba(29,158,117,0.15)' : 'rgba(212,175,119,0.1)',
-                      color: product.accent ? 'var(--green)' : 'var(--gold)',
-                      border: `1px solid ${product.accent ? 'rgba(29,158,117,0.3)' : 'rgba(212,175,119,0.2)'}`,
-                    }}
-                  >
-                    {product.label}
-                  </span>
-                  {product.tag && (
-                    <span
-                      className="absolute top-3 right-3 text-[9px] uppercase tracking-[0.15em] px-2 py-1 rounded-sm"
-                      style={{ background: 'rgba(9,9,9,0.7)', color: 'var(--mist)', backdropFilter: 'blur(4px)' }}
-                    >
-                      {product.tag}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-display text-base font-medium leading-tight" style={{ color: 'var(--cream)' }}>
-                      {product.name}
-                    </h3>
-                    <span className="font-display text-base font-semibold shrink-0" style={{ color: 'var(--gold)' }}>
-                      {product.price}
-                    </span>
-                  </div>
-                  <p className="text-xs leading-relaxed" style={{ color: 'var(--mist)' }}>
-                    {product.desc}
-                  </p>
-                </div>
-
-                <div className="mt-auto flex items-center gap-2 text-[10px] uppercase tracking-[0.2em]" style={{ color: 'var(--gold-dim)' }}>
-                  <span className="group-hover:text-[var(--gold)] transition-colors duration-300">View at MCS ↗</span>
-                </div>
-              </a>
-            ))}
-          </div>
-
-          {/* Bottom CTA band */}
-          <div
-            className="mt-10 p-6 md:p-8 rounded-sm flex flex-col md:flex-row items-center justify-between gap-5"
-            style={{
-              background: 'linear-gradient(135deg, rgba(212,175,119,0.07) 0%, rgba(212,175,119,0.03) 100%)',
-              border: '1px solid rgba(212,175,119,0.2)',
-            }}
-          >
-            <div>
-              <p className="font-display text-xl italic font-light" style={{ color: 'var(--cream)' }}>
-                The full collection is live.
-              </p>
-              <p className="text-sm mt-1" style={{ color: 'var(--mist)' }}>
-                Every drop from every era, plus the full Mid City Sound catalog.
-              </p>
-            </div>
-            <a
-              href={MERCH_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold shrink-0 text-[#090909] font-semibold text-xs uppercase tracking-[0.2em] px-8 py-4 rounded-sm whitespace-nowrap"
-            >
-              midcitysound.com/merch ↗
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════ UGC ════════════════════════════════ */}
-      <section
-        id="community"
-        ref={ugcReveal.ref as React.RefObject<HTMLElement>}
-        className={`section-reveal py-24 md:py-36 px-6 ${ugcReveal.revealed ? 'revealed' : ''}`}
-        style={{ background: 'var(--charcoal)' }}
-      >
-        <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
-
-          <div className="flex items-center gap-4">
-            <div className="gold-divider" />
-            <span className="text-[10px] uppercase tracking-[0.35em]" style={{ color: 'var(--gold)' }}>
-              Community
-            </span>
-            <div className="gold-divider" />
-          </div>
-
-          <h2
-            className="font-display leading-tight"
-            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', color: 'var(--cream)', fontWeight: 500 }}
-          >
-            Join the{' '}
-            <span className="italic text-gold-gradient">Era</span>
-          </h2>
-
-          <p className="text-base max-w-xl leading-relaxed" style={{ color: 'var(--mist)' }}>
-            Share your worst decade-appropriate drunk dial story. Tag us.
-            Use the hashtag. Lil Squiggle will feel slightly less alone.
+          <p className="text-center text-mist text-xs mt-4 tracking-wide">
+            Produced by Mid City Sound &amp; Fire on the Bayou · Hosted by Doug Belote
           </p>
 
-          <div
-            className="w-full max-w-lg px-8 py-8 rounded-sm"
-            style={{ background: 'var(--charcoal-2)', border: '1px solid rgba(212,175,119,0.2)' }}
-          >
-            <p className="font-display text-2xl md:text-3xl italic font-light" style={{ color: 'var(--gold)' }}>
-              #DontDrinkAndDialDecades
-            </p>
-            <p className="text-xs mt-2 uppercase tracking-widest" style={{ color: 'var(--mist)' }}>
-              Tag your era. Own your regret.
-            </p>
+          {/* Post-trailer purchase CTA */}
+          <div className="flex justify-center mt-8">
+            <Link
+              href="/watch"
+              className="inline-flex items-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
+            >
+              <ShoppingCart className="w-4 h-4" />
+              Purchase for $10.00
+            </Link>
           </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-2">
-            {[
-              { label: 'TikTok',    handle: '@lilsquigglemon', href: 'https://tiktok.com/@lilsquigglemon',   accent: 'var(--green)' },
-              { label: 'Instagram', handle: '@lil.squiggle',   href: 'https://instagram.com/lil.squiggle',  accent: 'var(--gold)' },
-              { label: 'YouTube',   handle: '@lilsquigglemon', href: 'https://youtube.com/@lilsquigglemon', accent: 'var(--gold)' },
-              { label: 'X',         handle: '@lilsquigglemon', href: 'https://x.com/lilsquigglemon',        accent: 'var(--mist)' },
-            ].map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-sm transition-all duration-300 group"
-                style={{
-                  background: 'var(--charcoal-3)',
-                  border: '1px solid rgba(212,175,119,0.15)',
-                  color: 'var(--mist)',
-                  textDecoration: 'none',
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget
-                  el.style.borderColor = 'rgba(212,175,119,0.4)'
-                  el.style.color = 'var(--cream)'
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget
-                  el.style.borderColor = 'rgba(212,175,119,0.15)'
-                  el.style.color = 'var(--mist)'
-                }}
-              >
-                <span className="text-[9px] uppercase tracking-[0.2em] font-medium" style={{ color: s.accent }}>
-                  {s.label}
-                </span>
-                <span className="text-sm">{s.handle}</span>
-                <span className="text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200">↗</span>
-              </a>
-            ))}
-          </div>
-
-          <a
-            href="https://midcitysound.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 btn-outline-gold text-xs uppercase tracking-[0.25em] px-7 py-3 rounded-sm"
-            style={{ color: 'var(--gold)' }}
-          >
-            Explore Mid City Sound ↗
-          </a>
         </div>
       </section>
 
-      {/* ══════════════════════════ MCS BRAND BRIDGE ═══════════════════════ */}
-      <section
-        className="py-16 md:py-20 px-6"
-        style={{
-          background: 'var(--black)',
-          borderTop: '1px solid rgba(212,175,119,0.1)',
-        }}
-      >
-        <div className="max-w-5xl mx-auto">
-          <div
-            className="relative rounded-sm overflow-hidden p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12"
-            style={{
-              background: 'linear-gradient(135deg, #141008 0%, #0e0e0e 60%, #0a1208 100%)',
-              border: '1px solid rgba(212,175,119,0.2)',
-            }}
-          >
-            {/* Ambient glow */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: 'radial-gradient(ellipse 60% 80% at 0% 50%, rgba(212,175,119,0.06) 0%, transparent 60%)',
-              }}
-            />
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: 'radial-gradient(ellipse 40% 60% at 100% 50%, rgba(29,158,117,0.04) 0%, transparent 60%)',
-              }}
-            />
+      {/* ════════════════════════════════════════════════════════════════ */}
+      {/* 4. SYNOPSIS + CREDITS + MCS CROSSLINK (merged)                   */}
+      {/* ════════════════════════════════════════════════════════════════ */}
+      <section className="border-t border-studio-border/40 bg-studio-charcoal">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
 
-            {/* Text */}
-            <div className="relative flex flex-col gap-3 flex-1 text-center md:text-left">
-              <p className="text-[10px] uppercase tracking-[0.4em]" style={{ color: 'var(--gold)' }}>
-                Part of the Mid City Sound family
-              </p>
-              <h3
-                className="font-display leading-tight"
-                style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: 'var(--cream)', fontWeight: 500 }}
-              >
-                Three Brands.{' '}
-                <span className="italic text-gold-gradient">One Studio.</span>
-              </h3>
-              <p className="text-sm leading-relaxed max-w-md" style={{ color: 'var(--mist)' }}>
-                Lil Squiggle lives inside the Mid City Sound universe alongside the full
-                studio catalog and Streetbeats. All merch — all eras — lives in one place.
-              </p>
-              <div className="flex flex-wrap gap-2 mt-1 justify-center md:justify-start">
-                {['Lil Squiggle', 'Mid City Sound', 'Streetbeats'].map((brand, i) => (
-                  <span
-                    key={brand}
-                    className="text-[9px] uppercase tracking-[0.2em] px-3 py-1 rounded-full"
-                    style={{
-                      background: i === 0 ? 'rgba(29,158,117,0.1)' : 'rgba(212,175,119,0.07)',
-                      color: i === 0 ? 'var(--green)' : 'var(--gold)',
-                      border: `1px solid ${i === 0 ? 'rgba(29,158,117,0.25)' : 'rgba(212,175,119,0.18)'}`,
-                    }}
-                  >
-                    {brand}
-                  </span>
-                ))}
+          {/* Synopsis + Credits */}
+          <div className="py-16 sm:py-20 grid md:grid-cols-[1fr_300px] gap-10 md:gap-14 items-start">
+
+            {/* Synopsis */}
+            <div className="space-y-6">
+              <Badge variant="outline" className="text-[10px] tracking-widest uppercase mx-auto sm:mx-0 block w-fit">
+                About the Film
+              </Badge>
+              <h2 className="font-display text-4xl md:text-5xl text-cream leading-tight text-center sm:text-left">
+                Playing
+                <br />
+                <span className="text-gold-gradient italic">&ldquo;In the Cracks&rdquo;</span>
+              </h2>
+              <Separator className="w-12 bg-gold/40 mx-auto" />
+              <div className="space-y-4 text-mist text-sm leading-relaxed text-center sm:text-left">
+                <p>
+                  New Orleans has a drum sound unlike anywhere else on earth. It lives in the second line,
+                  in the brass band, in the improvised groove that runs through everything from jazz to
+                  bounce to hip-hop. But what is it, exactly? Where does it come from?
+                </p>
+                <p>
+                  <em className="not-italic text-cream/80">Street Beat: Drumming Below Sea Level</em>{" "}brings together NOLA&apos;s most influential percussionists to answer that question — in their own words, in the city that made them.
+                </p>
+                <p>
+                  Produced by <strong className="text-cream font-normal">Mid City Sound Studios</strong> and{" "}
+                  <strong className="text-cream font-normal">Fire on the Bayou</strong>, and hosted by{" "}
+                  <strong className="text-cream font-normal">Doug Belote</strong>, this 54-minute documentary
+                  is an intimate portrait of a rhythm that shaped the world.
+                </p>
               </div>
             </div>
 
-            {/* CTA stack */}
-            <div className="relative flex flex-col gap-3 shrink-0 w-full md:w-auto">
-              <a
-                href="https://midcitysound.com/merch"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-gold text-[#090909] font-semibold text-xs uppercase tracking-[0.2em] px-8 py-4 rounded-sm text-center whitespace-nowrap"
-              >
-                Shop All Merch ↗
-              </a>
-              <a
-                href="https://midcitysound.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-outline-gold text-xs uppercase tracking-[0.2em] px-8 py-3.5 rounded-sm text-center whitespace-nowrap"
-                style={{ color: 'var(--mist)' }}
-              >
-                midcitysound.com ↗
-              </a>
+            {/* Credits card */}
+            <div className="border border-studio-border rounded-sm bg-studio-card overflow-hidden text-center sm:text-left">
+              <div className="p-5 border-b border-studio-border">
+                <p className="text-[10px] tracking-[0.2em] uppercase text-gold/70 font-medium text-center sm:text-left">Film Credits</p>
+              </div>
+              <div className="divide-y divide-studio-border">
+                {CREDITS.map(({ role, name }) => (
+                  <div key={role} className="px-5 py-4">
+                    <p className="text-[10px] tracking-widest uppercase text-mist/50 mb-1">{role}</p>
+                    <p className="text-cream text-sm">{name}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="p-5 border-t border-studio-border bg-studio-dark">
+                <div className="flex items-center gap-2">
+                  <Award className="w-4 h-4 text-gold/50 shrink-0" />
+                  <p className="text-mist text-xs text-center sm:text-left">A film about the sound New Orleans gave the world</p>
+                </div>
+              </div>
             </div>
           </div>
+
+          {/* MCS crosslink — directly attached, no gap */}
+          <div className="border-t border-studio-border/40 py-10">
+            <div className="flex flex-col items-center sm:flex-row sm:items-center gap-6 sm:justify-between text-center sm:text-left">
+              <div className="flex flex-col items-center sm:flex-row sm:items-center gap-5">
+                <div className="relative w-[200px] h-[66px] shrink-0">
+                  <Image
+                    src="/images/mcs2-logo.png"
+                    alt="Mid City Sound Studios"
+                    fill
+                    className="object-contain object-center"
+                    sizes="200px"
+                  />
+                </div>
+                <div className="text-center sm:text-left">
+                  <p className="text-cream text-sm font-medium mb-1">
+                    Street Beat is a Mid City Sound Studios production
+                  </p>
+                  <p className="text-mist text-xs leading-relaxed max-w-sm">
+                    Book studio time in New Orleans at Mid City Sound — the studio behind the film.
+                  </p>
+                </div>
+              </div>
+              <Button variant="outline" asChild className="shrink-0 w-full sm:w-auto">
+                <Link href="https://midcitysound.com" target="_blank" rel="noopener noreferrer">
+                  Book Now
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+
         </div>
       </section>
-
-      <Footer />
     </>
   )
 }
