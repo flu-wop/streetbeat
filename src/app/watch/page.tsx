@@ -27,7 +27,7 @@ import { Button }    from "@/components/ui/button"
 import { Badge }     from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 
-const SQUARESPACE_URL = "https://www.streetbeat.video/pay-link/4368252c-2852-41cb-8637-7c91111eae79"
+const SQUARESPACE_URL = "https://glockenspiel-chrysalis-rntm.squarespace.com/movie/v/street-beat?categoryId=67fbdb84f5df150b330bc6db"
 
 export default function WatchPage() {
   const hasAccess = false // ← set from cookie/JWT verification after purchase
