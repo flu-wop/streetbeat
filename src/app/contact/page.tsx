@@ -1,7 +1,7 @@
 // src/app/contact/page.tsx
 "use client"
 import { useState } from "react"
-import { Mail, CheckCircle2, MapPin, Instagram } from "lucide-react"
+import { Mail, CheckCircle2, MapPin } from "lucide-react"
 import { Button }   from "@/components/ui/button"
 import { Badge }    from "@/components/ui/badge"
 import { Input }    from "@/components/ui/input"
@@ -46,13 +46,6 @@ export default function ContactPage() {
                 <MapPin className="w-3.5 h-3.5 mt-0.5 text-gold/40 shrink-0" />
                 <span>Mid City Sound Studios<br />530 S Norman C Francis Pkwy<br />New Orleans, Louisiana</span>
               </div>
-            </div>
-            <div>
-              <p className="text-[10px] tracking-widest uppercase text-gold/60 mb-2">Instagram</p>
-              <a href="https://www.instagram.com/dougbelote/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-mist hover:text-gold transition-colors">
-                <Instagram className="w-4 h-4 shrink-0" />
-                @dougbelote
-              </a>
             </div>
           </div>
           {sent ? (
