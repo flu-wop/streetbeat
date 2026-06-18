@@ -177,13 +177,13 @@ export default function HomePage() {
             <h2 className="font-display text-4xl md:text-5xl text-cream">Watch the Trailer</h2>
           </div>
 
-          {/* YouTube embed — trailer ID: JgqTdAVGwUc */}
+          {/* YouTube embed — trailer ID: 9wKGm0jsQ9k */}
           <div
             className="relative aspect-video rounded-sm overflow-hidden border border-studio-border/60"
             style={{ boxShadow: "0 0 80px rgba(0,0,0,0.8), 0 0 40px rgba(212,175,119,0.05)" }}
           >
             <iframe
-              src="https://www.youtube.com/embed/JgqTdAVGwUc?rel=0&modestbranding=1&color=white"
+              src="https://www.youtube.com/embed/9wKGm0jsQ9k?rel=0&modestbranding=1&color=white"
               title="Street Beat: Drumming Below Sea Level — Official Trailer"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
