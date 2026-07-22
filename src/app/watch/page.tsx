@@ -14,8 +14,7 @@ import { Separator } from "@/components/ui/separator"
 import { verifyAccessToken, ACCESS_COOKIE } from "@/lib/access"
 import WatchPaywall from "./WatchPaywall"
 
-// Real unlisted YouTube video ID goes here once provided — this is still
-// the placeholder trailer ID.
+// Confirmed real unlisted video ID for the film (same as the trailer's ID).
 const FILM_YOUTUBE_ID = "JgqTdAVGwUc"
 
 export default async function WatchPage() {
