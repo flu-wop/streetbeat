@@ -31,7 +31,7 @@ const CREDITS = [
   { role: "Produced by",  name: "Mid City Sound Studios" },
   { role: "Produced by",  name: "Fire on the Bayou" },
   { role: "Produced by",  name: "Doreja Productions" },
-  { role: "Hosted by",    name: "Doug Belote" },
+  { role: "Hosted by",    name: "Doug Belote, collaborator at Mid City Sound" },
   { role: "Runtime",      name: "54 minutes" },
   { role: "Released",     name: "2025" },
 ]
@@ -111,8 +111,8 @@ export default function HomePage() {
               className="text-mist text-base md:text-lg max-w-md leading-relaxed mb-7 font-light opacity-0 animate-fade-up delay-400 text-center sm:text-left"
               style={{ animationFillMode: "forwards" }}
             >
-              What is the New Orleans drum sound? NOLA's most influential drummers
-              answer the question the city has been asking for a hundred years.
+              Some of the world&apos;s most influential drummers have shaped New Orleans
+              for over a hundred years. This is the question the city has been asking.
             </p>
 
             {/* Meta strip */}
@@ -235,13 +235,13 @@ export default function HomePage() {
                   bounce to hip-hop. But what is it, exactly? Where does it come from?
                 </p>
                 <p>
-                  <em className="not-italic text-cream/80">Street Beat: Drumming Below Sea Level</em>{" "}brings together NOLA&apos;s most influential percussionists to answer that question — in their own words, in the city that made them.
+                  <em className="not-italic text-cream/80">Street Beat: Drumming Below Sea Level</em>{" "}brings together NOLA&apos;s most influential drummers to answer that question — in their own words, in the city that made them.
                 </p>
                 <p>
                   Produced by <strong className="text-cream font-normal">Mid City Sound Studios</strong> and{" "}
-                  <strong className="text-cream font-normal">Fire on the Bayou</strong>, and hosted by{" "}
+                  <strong className="text-cream font-normal">Fire on the Bayou</strong>. Hosted by{" "}
                   <strong className="text-cream font-normal">Doug Belote</strong>, this 54-minute documentary
-                  is an intimate portrait of a rhythm that shaped the world.
+                  is an intimate portrait of the rhythms that shaped the world.
                 </p>
               </div>
             </div>

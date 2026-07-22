@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator"
 
 export const metadata: Metadata = {
   title:       "About the Film | Street Beat Documentary",
-  description: "The story behind Street Beat: Drumming Below Sea Level — a Mid City Sound production about New Orleans percussion.",
+  description: "The story behind Street Beat: Drumming Below Sea Level — a Mid City Sound production about New Orleans drumming.",
 }
 
 const FACTS = [
@@ -51,8 +51,8 @@ export default function AboutPage() {
             The Sound Behind the Film
           </h1>
           <p className="text-mist text-sm max-w-lg leading-relaxed mx-auto sm:mx-0">
-            Street Beat began with a simple question: what makes the New Orleans drum
-            sound unlike anything else on earth? The answer required going back to the source.
+            What makes New Orleans drumming unique? Street Beat began with that exact
+            question. The answer required going back to the source.
           </p>
         </div>
       </section>
@@ -124,7 +124,7 @@ export default function AboutPage() {
               <p>
                 Mid City Sound Studios has always been rooted in New Orleans rhythm. When
                 producer Donald Markowitz and the team at Fire on the Bayou began discussing the
-                New Orleans percussion tradition, one question kept coming up:{" "}
+                New Orleans drumming tradition, one question kept coming up:{" "}
                 <em className="not-italic text-cream/80">why does it sound the way it does?</em>
               </p>
               <p>
