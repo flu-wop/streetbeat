@@ -111,8 +111,8 @@ export default function HomePage() {
               className="text-mist text-base md:text-lg max-w-md leading-relaxed mb-7 font-light opacity-0 animate-fade-up delay-400 text-center sm:text-left"
               style={{ animationFillMode: "forwards" }}
             >
-              Some of the world&apos;s most influential drummers have shaped New Orleans
-              for over a hundred years. This is the question the city has been asking.
+              What is the New Orleans drum sound? Some of the world&apos;s most influential
+              drummers have spent a hundred years answering it.
             </p>
 
             {/* Meta strip */}
