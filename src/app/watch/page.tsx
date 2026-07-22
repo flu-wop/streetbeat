@@ -1,47 +1,32 @@
 // src/app/watch/page.tsx — PURCHASE / PAYWALL PAGE
-// Single price: $10.00 Own Forever. Rental option removed.
-//
-// STRIPE INTEGRATION:
-//   Create /app/api/checkout/route.ts:
-//     const session = await stripe.checkout.sessions.create({
-//       payment_method_types: ["card", "apple_pay", "google_pay"],
-//       line_items: [{ price_data: { currency:"usd", unit_amount:599,
-//         product_data:{ name:"Street Beat: Drumming Below Sea Level" }}, quantity:1 }],
-//       mode: "payment",
-//       success_url: `${baseUrl}/watch/success?session_id={CHECKOUT_SESSION_ID}`,
-//       cancel_url: `${baseUrl}/watch`,
-//     })
-//     return Response.json({ url: session.url })
-//
-//   On success page: verify session → set httpOnly cookie → show video iframe.
+// Server component — checks the real signed access cookie (set by
+// /api/verify-purchase after a genuine Stripe payment) instead of a
+// hardcoded `hasAccess = false` placeholder. No database needed: the
+// cookie itself is cryptographically tied to a real Stripe session ID.
 
-"use client"
-
-import Link           from "next/link"
+import { cookies } from "next/headers"
 import Image          from "next/image"
 import {
-  Lock, CheckCircle2, Clock,
-  ShieldCheck, Monitor, ShoppingCart,
+  CheckCircle2, Clock, ShieldCheck,
 } from "lucide-react"
-import { Button }    from "@/components/ui/button"
 import { Badge }     from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import { verifyAccessToken, ACCESS_COOKIE } from "@/lib/access"
+import WatchPaywall from "./WatchPaywall"
 
-const SQUARESPACE_URL = "https://glockenspiel-chrysalis-rntm.squarespace.com/movie/v/street-beat?categoryId=67fbdb84f5df150b330bc6db"
+// Real unlisted YouTube video ID goes here once provided — this is still
+// the placeholder trailer ID.
+const FILM_YOUTUBE_ID = "JgqTdAVGwUc"
 
-export default function WatchPage() {
-  const hasAccess = false // ← set from cookie/JWT verification after purchase
-
-  function handlePurchase() {
-    window.location.href = SQUARESPACE_URL
-  }
+export default async function WatchPage() {
+  const cookieStore = await cookies()
+  const hasAccess = verifyAccessToken(cookieStore.get(ACCESS_COOKIE)?.value)
 
   return (
     <div className="pt-16 min-h-screen bg-studio-black">
 
       {/* ── Header ── */}
       <section className="py-16 px-6 border-b border-studio-border/40 bg-studio-charcoal relative overflow-hidden">
-        {/* Poster thumbnail on right — desktop only */}
         <div className="absolute right-0 top-0 bottom-0 w-1/3 hidden lg:block">
           <Image src="/images/streetbeat-poster.png" alt="" fill className="object-cover object-center opacity-40" sizes="33vw" />
           <div className="absolute inset-0 bg-gradient-to-r from-studio-charcoal to-transparent" />
@@ -68,27 +53,20 @@ export default function WatchPage() {
 
       {/* ── Content ── */}
       <div className="mx-auto max-w-3xl px-6 py-14">
-
         {hasAccess ? (
-          /* ── UNLOCKED ── */
+          /* ── UNLOCKED — real, verified purchase ── */
           <div className="space-y-8">
             <div className="flex items-center gap-2" style={{ color: "#1D9E75" }}>
               <CheckCircle2 className="w-5 h-5" />
               <span className="text-sm font-medium">Purchase Confirmed — Enjoy the Film</span>
             </div>
 
-            {/*
-              ── VIDEO PLAYER ─────────────────────────────────────────────────
-              Replace src with your unlisted YouTube or private Vimeo URL.
-              The trailer ID JgqTdAVGwUc is a placeholder.
-              ─────────────────────────────────────────────────────────────────
-            */}
             <div
               className="relative aspect-video rounded-sm overflow-hidden border border-studio-border/60"
               style={{ boxShadow: "0 0 80px rgba(0,0,0,0.8), 0 0 40px rgba(212,175,119,0.06)" }}
             >
               <iframe
-                src="https://www.youtube.com/embed/JgqTdAVGwUc?rel=0&modestbranding=1&autoplay=1"
+                src={`https://www.youtube.com/embed/${FILM_YOUTUBE_ID}?rel=0&modestbranding=1&autoplay=1`}
                 title="Street Beat: Drumming Below Sea Level"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -104,95 +82,8 @@ export default function WatchPage() {
               </p>
             </div>
           </div>
-
         ) : (
-          /* ── PAYWALL ── */
-          <div className="space-y-8">
-
-            {/* Lock screen preview */}
-            <div className="relative aspect-video rounded-sm overflow-hidden border border-studio-border/60 bg-studio-dark">
-              {/* Poster blurred behind lock */}
-              <Image src="/images/streetbeat-poster.png" alt="" fill className="object-cover opacity-[0.45] blur-sm" sizes="800px" />
-              <div className="absolute inset-0 bg-studio-black/60 flex flex-col items-center justify-center gap-5 text-center px-8">
-                <div className="w-16 h-16 border border-gold/30 rounded-full flex items-center justify-center bg-studio-black/60 backdrop-blur-sm">
-                  <Lock className="w-7 h-7 text-gold/60" />
-                </div>
-                <div>
-                  <p className="font-display text-2xl text-cream">Purchase to Watch</p>
-                  <p className="text-mist text-sm mt-1">$10.00 · One-time purchase · No subscription.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Purchase card */}
-            <div
-              className="border border-gold/25 rounded-sm overflow-hidden"
-              style={{ boxShadow: "0 0 40px rgba(212,175,119,0.06)" }}
-            >
-              <div className="p-8 space-y-6">
-
-                {/* Price */}
-                <div className="text-center space-y-2">
-                  <p className="font-display text-7xl text-gold leading-none">
-                    $10<span className="text-4xl text-gold/70">.00</span>
-                  </p>
-                  <p className="text-mist text-sm">One-time · Own forever · No subscription</p>
-                </div>
-
-                {/* Main CTA */}
-                <button
-                  onClick={handlePurchase}
-                  className="w-full h-14 bg-gold text-studio-black text-[14px] font-bold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
-                >
-                  <ShoppingCart className="w-5 h-5" />
-                  Purchase for $10.00
-                </button>
-
-                {/* Trust signals */}
-                <div className="flex flex-wrap justify-center gap-5 text-mist/50 text-xs pt-1">
-                  {[
-                    { icon: ShieldCheck, text: "Secure payment" },
-                    { icon: Monitor,     text: "Any device" },
-                  ].map(({ icon: Icon, text }) => (
-                    <div key={text} className="flex items-center gap-1.5">
-                      <Icon className="w-3.5 h-3.5" />{text}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* What You Get */}
-              <div className="border-t border-studio-border/40 px-8 py-5 bg-studio-dark">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-mist/50 mb-3">What You Get</p>
-                <div className="grid sm:grid-cols-2 gap-2">
-                  {[
-                    "54-Minute Documentary in HD",
-                    "Lifetime Access — No Expiry",
-                    "Stream on Any Device",
-                    "Closed Captions Included",
-                    "Email Receipt with Link",
-                    "Supports NOLA Independent Film",
-                  ].map(item => (
-                    <div key={item} className="flex items-center gap-2 text-xs text-cream/80">
-                      <div className="w-1.5 h-1.5 rounded-full bg-gold/40 shrink-0" />{item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Group screening note */}
-            <div className="border border-studio-border/40 rounded-sm p-5 flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
-              <Monitor className="w-4 h-4 text-gold/50 shrink-0 mt-0.5" />
-              <div>
-                <p className="text-cream text-sm font-medium mb-1">Group / Classroom Screening?</p>
-                <p className="text-mist text-xs mb-2">Educational institutions, film societies, and venues — reach out for group licensing.</p>
-                <Button variant="ghost" size="sm" asChild>
-                  <Link href="/contact">Contact Us</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
+          <WatchPaywall />
         )}
       </div>
     </div>
