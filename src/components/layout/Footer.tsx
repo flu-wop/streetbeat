@@ -3,6 +3,7 @@
 import Link  from "next/link";
 import Image from "next/image";
 import { Instagram, ExternalLink } from "lucide-react";
+import { BuiltBySignature } from "./BuiltBySignature";
 
 const SITE_LINKS = [
   { label: "Home",    href: "/" },
@@ -96,6 +97,8 @@ export function Footer() {
           <p className="text-mist/30 text-xs">Runtime: 54 Minutes</p>
         </div>
       </div>
+
+      <BuiltBySignature />
     </footer>
   );
 }
