@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { label: "Home",    href: "/" },
   { label: "Watch",   href: "/watch" },
   { label: "About",   href: "/about" },
-  { label: "Merch",   href: "https://midcitysound.com/merch" },
+  { label: "Merch",   href: "https://midcitysound.com/merch/brand/streetbeat" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
