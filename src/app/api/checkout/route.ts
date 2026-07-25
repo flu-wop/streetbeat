@@ -28,6 +28,9 @@ export async function POST() {
       }],
       success_url: `${BASE_URL}/api/verify-purchase?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${BASE_URL}/watch`,
+      metadata: {
+        source: "streetbeat-purchase",
+      },
       custom_text: {
         submit: { message: "Lifetime access — no subscription, no expiry." },
       },
