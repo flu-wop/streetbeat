@@ -14,6 +14,7 @@ import { NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
 import { signAccessToken, verifyAccessToken, ACCESS_COOKIE } from "@/lib/access"
 import { sendPurchaseEmails } from "@/lib/purchase-email"
+import { alertVerifyFailure } from "@/lib/verify-alert"
 
 function getStripe() {
   return new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-06-24.dahlia" })
@@ -68,6 +69,7 @@ export async function GET(req: NextRequest) {
     return response
   } catch (err) {
     console.error("[verify-purchase] Failed to verify session:", err)
+    await alertVerifyFailure(sessionId, err)
     return NextResponse.redirect(`${BASE_URL}/watch`)
   }
 }
