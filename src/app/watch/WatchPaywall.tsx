@@ -4,16 +4,49 @@
 // server component (needed to read the access cookie server-side).
 
 import { useState } from "react"
+import { useSearchParams } from "next/navigation"
 import Link          from "next/link"
 import Image         from "next/image"
 import {
-  Lock, ShieldCheck, Monitor, ShoppingCart,
+  Lock, ShieldCheck, Monitor, ShoppingCart, Mail,
 } from "lucide-react"
 import { Button }    from "@/components/ui/button"
 
 export default function WatchPaywall() {
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState<string | null>(null)
+
+  const searchParams = useSearchParams()
+  const linkExpired = searchParams.get("link_expired") === "1"
+  const notFound     = searchParams.get("not_found") === "1"
+
+  const [showRecovery, setShowRecovery] = useState(false)
+  const [recoveryEmail, setRecoveryEmail] = useState("")
+  const [recoveryLoading, setRecoveryLoading] = useState(false)
+  const [recoveryResult, setRecoveryResult] = useState<{ found: boolean; message: string } | null>(null)
+
+  async function handleRecoverySubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setRecoveryLoading(true)
+    setRecoveryResult(null)
+    try {
+      const res = await fetch("/api/request-access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: recoveryEmail }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Something went wrong.")
+      setRecoveryResult({ found: data.found, message: data.message })
+    } catch (err) {
+      setRecoveryResult({
+        found: false,
+        message: err instanceof Error ? err.message : "Something went wrong. Please try again.",
+      })
+    } finally {
+      setRecoveryLoading(false)
+    }
+  }
 
   async function handlePurchase() {
     setLoading(true)
@@ -31,6 +64,16 @@ export default function WatchPaywall() {
 
   return (
     <div className="space-y-8">
+
+      {(linkExpired || notFound) && (
+        <div className="border border-gold/25 rounded-sm p-4 text-center bg-studio-dark">
+          <p className="text-cream text-sm">
+            {linkExpired
+              ? "That link expired — request a new one below."
+              : "We couldn't verify that link — request a new one below."}
+          </p>
+        </div>
+      )}
 
       {/* Lock screen preview */}
       <div className="relative aspect-video rounded-sm overflow-hidden border border-studio-border/60 bg-studio-dark">
@@ -101,6 +144,40 @@ export default function WatchPaywall() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Already purchased — email recovery */}
+      <div className="border border-studio-border/40 rounded-sm p-5 text-center">
+        {!showRecovery ? (
+          <button
+            onClick={() => setShowRecovery(true)}
+            className="text-mist text-sm hover:text-gold transition-colors flex items-center gap-2 mx-auto"
+          >
+            <Mail className="w-3.5 h-3.5" />
+            Already purchased? Get your access link
+          </button>
+        ) : (
+          <form onSubmit={handleRecoverySubmit} className="space-y-3 max-w-sm mx-auto text-left">
+            <p className="text-cream text-sm text-center mb-1">Enter the email you purchased with</p>
+            <input
+              type="email"
+              required
+              value={recoveryEmail}
+              onChange={e => setRecoveryEmail(e.target.value)}
+              placeholder="you@example.com"
+              className="w-full bg-studio-black border border-studio-border rounded-sm px-3 py-2.5 text-cream text-sm
+                         focus:outline-none focus:border-gold/50"
+            />
+            <Button type="submit" disabled={recoveryLoading} className="w-full">
+              {recoveryLoading ? "Checking…" : "Send My Access Link"}
+            </Button>
+            {recoveryResult && (
+              <p className={`text-xs text-center ${recoveryResult.found ? "text-gold" : "text-mist"}`}>
+                {recoveryResult.message}
+              </p>
+            )}
+          </form>
+        )}
       </div>
 
       {/* Group screening note */}

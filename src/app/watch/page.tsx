@@ -5,6 +5,7 @@
 // cookie itself is cryptographically tied to a real Stripe session ID.
 
 import { cookies } from "next/headers"
+import { Suspense }   from "react"
 import Image          from "next/image"
 import {
   CheckCircle2, Clock, ShieldCheck,
@@ -82,7 +83,9 @@ export default async function WatchPage() {
             </div>
           </div>
         ) : (
-          <WatchPaywall />
+          <Suspense fallback={null}>
+            <WatchPaywall />
+          </Suspense>
         )}
       </div>
     </div>
