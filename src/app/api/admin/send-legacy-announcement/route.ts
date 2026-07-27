@@ -24,7 +24,7 @@ function announcementHtml(link: string): string {
   return `
     <div style="font-family:Georgia,serif;max-width:480px;margin:0 auto;padding:32px 24px;background:#0e0e0e;color:#f5edd8">
       <p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#d4af77;margin:0 0 4px">Street Beat</p>
-      <h1 style="font-size:22px;margin:0 0 20px;font-weight:500">We rebuilt the site</h1>
+      <h1 style="font-size:22px;margin:0 0 20px;font-weight:500">It's still here, waiting</h1>
       <p style="font-size:14px;line-height:1.6;color:#a89880">
         You purchased <em>Street Beat: Drumming Below Sea Level</em> a while back — the site's been rebuilt from the
         ground up. Click below to check it out and watch anytime — this link doesn't expire.
@@ -63,7 +63,7 @@ export async function POST(req: Request) {
       await resend.emails.send({
         from,
         to: p.email,
-        subject: "We rebuilt Street Beat — watch anytime",
+        subject: "Still haven't watched? Street Beat is ready when you are",
         html: announcementHtml(link),
       })
       sent++
