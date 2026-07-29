@@ -31,9 +31,6 @@ export async function POST() {
       metadata: {
         source: "streetbeat-purchase",
       },
-      custom_text: {
-        submit: { message: "Lifetime access — no subscription, no expiry." },
-      },
     })
 
     return NextResponse.json({ url: session.url })
