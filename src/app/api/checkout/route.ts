@@ -13,7 +13,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_URL ?? "https://streetbeat.video"
 export async function POST() {
   try {
     const session = await getStripe().checkout.sessions.create({
-      payment_method_types: ["card"],
       mode: "payment",
       line_items: [{
         price_data: {
