@@ -20,6 +20,7 @@ export async function POST() {
           product_data: {
             name: "Street Beat: Drumming Below Sea Level",
             description: "54-minute documentary — lifetime access, own forever",
+            tax_code: "txcd_10804003", // Digital A/V work — streamed + permanent rights, non-subscription
           },
           unit_amount: 1000, // $10.00
         },
