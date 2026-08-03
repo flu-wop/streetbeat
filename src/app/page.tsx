@@ -8,15 +8,17 @@
 import type { Metadata } from "next"
 import Link              from "next/link"
 import Image             from "next/image"
+import { cookies }       from "next/headers"
 import {
   Play, ArrowRight, Clock, Film,
   MapPin, ChevronDown, Award,
-  ShoppingCart, Shield, Monitor, Captions,
+  ShoppingCart, Shield, Monitor, Captions, CheckCircle2,
 } from "lucide-react"
 import { Button }    from "@/components/ui/button"
 import { Badge }     from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import PurchaseButton from "./PurchaseButton"
+import { verifyAccessToken, ACCESS_COOKIE } from "@/lib/access"
 
 export const metadata: Metadata = {
   title: "Street Beat: Drumming Below Sea Level | Documentary Film",
@@ -37,7 +39,10 @@ const CREDITS = [
   { role: "Released",     name: "2025" },
 ]
 
-export default function HomePage() {
+export default async function HomePage() {
+  const cookieStore = await cookies()
+  const hasAccess = verifyAccessToken(cookieStore.get(ACCESS_COOKIE)?.value)
+
   return (
     <>
       {/* ════════════════════════════════════════════════════════════════ */}
@@ -138,8 +143,18 @@ export default function HomePage() {
               className="flex flex-col sm:flex-row gap-3 opacity-0 animate-fade-up delay-700 items-center sm:items-start"
               style={{ animationFillMode: "forwards" }}
             >
-              {/* Primary — purchase */}
-              <PurchaseButton />
+              {/* Primary — purchase, or Watch Now if already owned */}
+              {hasAccess ? (
+                <Link
+                  href="/watch"
+                  className="inline-flex items-center justify-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  Watch Now
+                </Link>
+              ) : (
+                <PurchaseButton />
+              )}
               {/* Secondary — trailer */}
               <a
                 href="#trailer"
@@ -190,9 +205,19 @@ export default function HomePage() {
             Produced by Mid City Sound &amp; Fire on the Bayou · Hosted by Doug Belote
           </p>
 
-          {/* Post-trailer purchase CTA */}
+          {/* Post-trailer CTA — purchase, or Watch Now if already owned */}
           <div className="flex justify-center mt-8">
-            <PurchaseButton />
+            {hasAccess ? (
+              <Link
+                href="/watch"
+                className="inline-flex items-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
+              >
+                <CheckCircle2 className="w-4 h-4" />
+                Watch Now
+              </Link>
+            ) : (
+              <PurchaseButton />
+            )}
           </div>
         </div>
       </section>
