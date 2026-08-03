@@ -16,6 +16,7 @@ import {
 import { Button }    from "@/components/ui/button"
 import { Badge }     from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import PurchaseButton from "./PurchaseButton"
 
 export const metadata: Metadata = {
   title: "Street Beat: Drumming Below Sea Level | Documentary Film",
@@ -138,13 +139,7 @@ export default function HomePage() {
               style={{ animationFillMode: "forwards" }}
             >
               {/* Primary — purchase */}
-              <Link
-                href="/watch"
-                className="inline-flex items-center justify-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
-              >
-                <ShoppingCart className="w-4 h-4" />
-                Purchase for $10.00
-              </Link>
+              <PurchaseButton />
               {/* Secondary — trailer */}
               <a
                 href="#trailer"
@@ -197,13 +192,7 @@ export default function HomePage() {
 
           {/* Post-trailer purchase CTA */}
           <div className="flex justify-center mt-8">
-            <Link
-              href="/watch"
-              className="inline-flex items-center gap-2 h-12 px-8 bg-gold text-studio-black text-[13px] font-semibold tracking-widest uppercase rounded-sm hover:bg-gold-light transition-colors"
-            >
-              <ShoppingCart className="w-4 h-4" />
-              Purchase for $10.00
-            </Link>
+            <PurchaseButton />
           </div>
         </div>
       </section>
