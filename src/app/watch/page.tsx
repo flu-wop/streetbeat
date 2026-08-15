@@ -8,7 +8,7 @@ import { cookies } from "next/headers"
 import { Suspense }   from "react"
 import Image          from "next/image"
 import {
-  CheckCircle2, Clock, ShieldCheck,
+  CheckCircle2, Clock, ShieldCheck, Sparkles,
 } from "lucide-react"
 import { Badge }     from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -17,6 +17,10 @@ import WatchPaywall from "./WatchPaywall"
 
 // Confirmed real unlisted video ID for the film (same as the trailer's ID).
 const FILM_YOUTUBE_ID = "fiWuvMGq0Xs" // unlisted, hosted on @streetbeatnola
+// Bonus feature for purchasers only — gated the same way as the film itself,
+// never referenced anywhere public (no video description, no site copy
+// outside this authenticated branch).
+const BONUS_YOUTUBE_ID = "v5fCmRtyp0Q" // "Between the Grooves: Russ Kunkel & Lee Sklar", unlisted
 
 export default async function WatchPage() {
   const cookieStore = await cookies()
@@ -80,6 +84,30 @@ export default async function WatchPage() {
                 This is a protected stream. For support, contact{" "}
                 <a href="mailto:midcitysound1@gmail.com" className="text-gold hover:underline">midcitysound1@gmail.com</a>
               </p>
+            </div>
+
+            {/* ── Bonus: purchaser-only, no public reference anywhere ── */}
+            <div className="pt-6 border-t border-studio-border/40">
+              <div className="flex items-center gap-2 mb-4">
+                <Sparkles className="w-4 h-4 text-gold" />
+                <span className="text-cream text-sm font-medium">Bonus — Between the Grooves</span>
+                <Badge variant="outline" className="text-[9px] tracking-widest uppercase">Purchaser Exclusive</Badge>
+              </div>
+              <p className="text-mist text-xs mb-4 leading-relaxed">
+                Russ Kunkel &amp; Lee Sklar go deeper — a bonus conversation for everyone who purchased the film.
+              </p>
+              <div
+                className="relative aspect-video rounded-sm overflow-hidden border border-studio-border/60"
+                style={{ boxShadow: "0 0 60px rgba(0,0,0,0.7)" }}
+              >
+                <iframe
+                  src={`https://www.youtube.com/embed/${BONUS_YOUTUBE_ID}?rel=0&modestbranding=1`}
+                  title="Between the Grooves: Russ Kunkel &amp; Lee Sklar"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
             </div>
           </div>
         ) : (
