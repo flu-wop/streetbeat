@@ -16,7 +16,7 @@ import { verifyAccessToken, ACCESS_COOKIE } from "@/lib/access"
 import WatchPaywall from "./WatchPaywall"
 
 // Confirmed real unlisted video ID for the film (same as the trailer's ID).
-const FILM_YOUTUBE_ID = "JgqTdAVGwUc"
+const FILM_YOUTUBE_ID = "fiWuvMGq0Xs" // unlisted, hosted on @streetbeatnola
 
 export default async function WatchPage() {
   const cookieStore = await cookies()
