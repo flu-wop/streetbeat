@@ -15,6 +15,7 @@ import Stripe from "stripe"
 import { signAccessToken, verifyAccessToken, ACCESS_COOKIE } from "@/lib/access"
 import { sendPurchaseEmails } from "@/lib/purchase-email"
 import { alertVerifyFailure } from "@/lib/verify-alert"
+import { sendPurchaseEvent } from "@/lib/meta-capi"
 
 function getStripe() {
   return new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-06-24.dahlia" })
@@ -52,6 +53,14 @@ export async function GET(req: NextRequest) {
           // already succeeded and the customer still needs access.
           console.error("[verify-purchase] Failed to send confirmation email:", err)
         }
+
+        await sendPurchaseEvent({
+          sessionId,
+          customerEmail:   email,
+          amountCents:     session.amount_total ?? 0,
+          clientIp:        req.headers.get("x-forwarded-for")?.split(",")[0]?.trim(),
+          clientUserAgent: req.headers.get("user-agent"),
+        })
       } else {
         console.error(`[verify-purchase] No customer email on session ${sessionId}, skipping confirmation email`)
       }

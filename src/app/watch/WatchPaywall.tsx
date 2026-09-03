@@ -3,7 +3,7 @@
 // The paywall UI, extracted from watch/page.tsx so the page itself can be a
 // server component (needed to read the access cookie server-side).
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import Link          from "next/link"
 import Image         from "next/image"
@@ -12,7 +12,19 @@ import {
 } from "lucide-react"
 import { Button }    from "@/components/ui/button"
 
+declare global {
+  interface Window { fbq?: (...args: unknown[]) => void }
+}
+
 export default function WatchPaywall() {
+  useEffect(() => {
+    window.fbq?.("track", "ViewContent", {
+      content_name: "Street Beat: Drumming Below Sea Level",
+      value: 10.00,
+      currency: "USD",
+    })
+  }, [])
+
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState<string | null>(null)
 
@@ -55,6 +67,7 @@ export default function WatchPaywall() {
       const res = await fetch("/api/checkout", { method: "POST" })
       const data = await res.json()
       if (!res.ok || !data.url) throw new Error(data.error || "Something went wrong.")
+      window.fbq?.("track", "InitiateCheckout", { value: 10.00, currency: "USD" })
       window.location.href = data.url
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
