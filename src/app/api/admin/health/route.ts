@@ -1,7 +1,9 @@
 // src/app/api/admin/health/route.ts
-// Reuses STREETBEAT_ACCESS_SECRET as the auth gate — same secret and same
-// Authorization: Bearer pattern as /api/admin/send-legacy-announcement.
-// Streetbeat has no separate ADMIN_PASSWORD, so this doesn't invent one.
+// Uses its own ADMIN_ACCESS_SECRET, deliberately NOT the shared
+// STREETBEAT_ACCESS_SECRET — that one signs paying customers' lifetime
+// access cookies (see lib/access.ts) and magic-link tokens. Rotating it
+// would log out every existing customer; this route needs to be
+// independently rotatable without touching customer access at all.
 
 import { NextRequest, NextResponse } from "next/server"
 import {
@@ -10,7 +12,7 @@ import {
 
 export async function GET(req: NextRequest) {
   const auth = req.headers.get("authorization")
-  if (auth !== `Bearer ${process.env.STREETBEAT_ACCESS_SECRET}`) {
+  if (auth !== `Bearer ${process.env.ADMIN_ACCESS_SECRET}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
