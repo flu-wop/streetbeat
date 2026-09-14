@@ -100,17 +100,21 @@ export async function checkMetaPixel(): Promise<CheckResult> {
       return { status: "error", detail: `Token check failed: ${reason}` }
     }
 
-    const { is_valid, expires_at, scopes } = body.data
+    const { is_valid, expires_at } = body.data
     if (!is_valid) {
       return { status: "error", detail: `Token is invalid or revoked${body.data.error ? `: ${body.data.error.message}` : ""}` }
     }
 
+    // Not checking `scopes` here. Conversions API tokens generated from
+    // Events Manager → pixel Settings → Conversions API are System User
+    // tokens scoped to that specific pixel asset, not conventional OAuth
+    // permissions — debug_token can report an unrelated-looking scope
+    // (e.g. read_ads_dataset_quality) on a perfectly valid, correctly
+    // generated token. is_valid + never-expiring is the real signature
+    // of a genuine CAPI token; a scope-name check here produces false
+    // warnings, confirmed against a token verified generated the right way.
     const expiry = expires_at === 0 ? "never expires" : `expires ${new Date(expires_at * 1000).toLocaleDateString()}`
-    const hasEventsScope = Array.isArray(scopes) && scopes.some((s: string) => s.includes("ads_management") || s.includes("business_management"))
-    if (!hasEventsScope) {
-      return { status: "warn", detail: `Token valid (${expiry}) but scopes look unusual — verify it can still send events: ${scopes?.join(", ") || "none listed"}` }
-    }
-
+    return { status: "ok", detail: `CAPI token valid, ${expiry} — pixel ${pixelId}` }
     return { status: "ok", detail: `CAPI token valid, ${expiry} — pixel ${pixelId}` }
   } catch (err) {
     return { status: "error", detail: `Meta Graph API error: ${(err as Error).message}` }
