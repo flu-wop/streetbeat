@@ -79,24 +79,39 @@ export async function checkMetaPixel(): Promise<CheckResult> {
   const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID
   const token = process.env.META_CAPI_ACCESS_TOKEN
   if (!pixelId || !token) return { status: "error", detail: "Pixel ID or CAPI token not set" }
+
+  // Deliberately NOT calling GET /{pixel_id}?fields=id,name here. A
+  // Conversions API token generated from Events Manager is scoped to
+  // POST /{pixel_id}/events — the only thing sendPurchaseEvent() actually
+  // does — and commonly lacks the broader ads_management permission that
+  // reading the pixel object's metadata requires. Testing with the
+  // metadata read produced a false "(#100) Missing Permission" failure
+  // even when the token was perfectly capable of sending real events.
+  // debug_token self-inspects the token's own validity instead, which
+  // works with the token's actual granted scope.
   try {
-    const res = await fetch(`https://graph.facebook.com/v20.0/${pixelId}?fields=id,name&access_token=${token}`)
-    if (!res.ok) {
-      // Surface Meta's actual error message/code instead of just the HTTP
-      // status — "Invalid OAuth access token", "Unsupported get request"
-      // (wrong pixel ID), and "permission" errors all need different fixes,
-      // and a bare "(400)" doesn't tell you which one you're looking at.
-      let reason = `HTTP ${res.status}`
-      try {
-        const body = await res.json()
-        if (body?.error?.message) reason = body.error.message
-      } catch {
-        // response wasn't JSON — keep the bare status
-      }
-      return { status: "error", detail: `Graph API rejected pixel/token pair: ${reason}` }
+    const res = await fetch(
+      `https://graph.facebook.com/v20.0/debug_token?input_token=${token}&access_token=${token}`
+    )
+    const body = await res.json()
+
+    if (!res.ok || !body?.data) {
+      const reason = body?.error?.message ?? `HTTP ${res.status}`
+      return { status: "error", detail: `Token check failed: ${reason}` }
     }
-    const data = await res.json()
-    return { status: "ok", detail: `Connected to "${data.name ?? pixelId}"` }
+
+    const { is_valid, expires_at, scopes } = body.data
+    if (!is_valid) {
+      return { status: "error", detail: `Token is invalid or revoked${body.data.error ? `: ${body.data.error.message}` : ""}` }
+    }
+
+    const expiry = expires_at === 0 ? "never expires" : `expires ${new Date(expires_at * 1000).toLocaleDateString()}`
+    const hasEventsScope = Array.isArray(scopes) && scopes.some((s: string) => s.includes("ads_management") || s.includes("business_management"))
+    if (!hasEventsScope) {
+      return { status: "warn", detail: `Token valid (${expiry}) but scopes look unusual — verify it can still send events: ${scopes?.join(", ") || "none listed"}` }
+    }
+
+    return { status: "ok", detail: `CAPI token valid, ${expiry} — pixel ${pixelId}` }
   } catch (err) {
     return { status: "error", detail: `Meta Graph API error: ${(err as Error).message}` }
   }
