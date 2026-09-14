@@ -1,6 +1,9 @@
 // src/app/admin/system/page.tsx
 "use client"
 import { useState, useEffect, useCallback } from "react"
+import { Lock, RefreshCw } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 type CheckResult = { status: "ok" | "warn" | "error"; detail: string }
 type SaleRow = { email: string; amountCents: number; date: string }
@@ -15,28 +18,16 @@ type HealthData = {
   checkedAt: string
 }
 
-const STATUS_COLOR = { ok: "#4ADE80", warn: "#FACC15", error: "#F87171" }
+const STATUS_DOT = { ok: "bg-emerald-400", warn: "bg-amber-400", error: "bg-red-400" }
 
 function Pill({ status }: { status: "ok" | "warn" | "error" }) {
-  return (
-    <span
-      style={{
-        display: "inline-block", width: 10, height: 10, borderRadius: "50%",
-        background: STATUS_COLOR[status], marginRight: 8, flexShrink: 0,
-      }}
-    />
-  )
+  return <span className={`inline-block w-2 h-2 rounded-full mr-2 mt-1.5 shrink-0 ${STATUS_DOT[status]}`} />
 }
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div style={{
-      background: "var(--color-card, #1C1C1C)", border: "1px solid var(--color-border, #2A2A2A)",
-      borderRadius: 12, padding: 20, color: "var(--color-cream, #F5EDD8)", fontFamily: "var(--font-sans, 'DM Sans', sans-serif)",
-    }}>
-      <h3 style={{ fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontWeight: 400, fontSize: 20, color: "var(--color-gold, #D4AF77)", marginBottom: 12 }}>
-        {title}
-      </h3>
+    <div className="bg-studio-card border border-studio-border rounded-sm p-6">
+      <h3 className="font-display text-xl text-gold mb-4">{title}</h3>
       {children}
     </div>
   )
@@ -47,10 +38,13 @@ export default function SystemDashboard() {
   const [authed, setAuthed] = useState(false)
   const [data, setData] = useState<HealthData | null>(null)
   const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const fetchHealth = useCallback(async (pw: string) => {
+    setLoading(true)
     const res = await fetch("/api/admin/health", { headers: { Authorization: `Bearer ${pw}` } })
-    if (!res.ok) { setError("Wrong secret or check failed"); return }
+    setLoading(false)
+    if (!res.ok) { setError("Wrong secret or check failed."); return }
     setData(await res.json())
     setAuthed(true)
     setError("")
@@ -64,14 +58,28 @@ export default function SystemDashboard() {
 
   if (!authed) {
     return (
-      <div style={{ padding: 40, background: "#090909", minHeight: "100vh", fontFamily: "'DM Sans', sans-serif" }}>
-        <input
-          type="password" placeholder="Access secret" value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && fetchHealth(password)}
-          style={{ padding: 10, borderRadius: 6, border: "1px solid #2A2A2A", background: "#111", color: "#F5EDD8" }}
-        />
-        {error && <p style={{ color: "#F87171", marginTop: 8, fontSize: 13 }}>{error}</p>}
+      <div className="min-h-screen bg-studio-black flex items-center justify-center px-4">
+        <div className="w-full max-w-sm bg-studio-card border border-studio-border rounded-sm p-8">
+          <div className="w-10 h-10 border border-gold/40 rounded-full flex items-center justify-center mb-5">
+            <Lock className="w-4 h-4 text-gold" />
+          </div>
+          <h1 className="font-display text-2xl text-cream mb-1">Street Beat Admin</h1>
+          <p className="text-mist text-sm mb-6">System health — access secret required.</p>
+          <div className="space-y-3">
+            <Input
+              type="password"
+              placeholder="Access secret"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && fetchHealth(password)}
+              autoFocus
+            />
+            <Button className="w-full" onClick={() => fetchHealth(password)} disabled={loading || !password}>
+              {loading ? "Checking…" : "Enter"}
+            </Button>
+          </div>
+          {error && <p className="text-red-400 text-xs mt-4">{error}</p>}
+        </div>
       </div>
     )
   }
@@ -79,51 +87,60 @@ export default function SystemDashboard() {
   if (!data) return null
 
   return (
-    <div style={{ padding: 40, background: "#090909", minHeight: "100vh" }}>
-      <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 32, color: "#F5EDD8", marginBottom: 24 }}>
-        System Health
-      </h1>
-      <p style={{ color: "#A89880", marginBottom: 24, fontSize: 13 }}>
-        Last checked {new Date(data.checkedAt).toLocaleTimeString()} — refreshes every 60s
-      </p>
+    <div className="min-h-screen bg-studio-black px-6 sm:px-10 py-12">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex items-center justify-between mb-1">
+          <h1 className="font-display text-3xl text-cream">System Health</h1>
+          <button
+            onClick={() => fetchHealth(password)}
+            className="text-mist hover:text-gold transition-colors"
+            aria-label="Refresh now"
+          >
+            <RefreshCw className="w-4 h-4" />
+          </button>
+        </div>
+        <p className="text-mist text-xs mb-8">
+          Last checked {new Date(data.checkedAt).toLocaleTimeString()} — refreshes every 60s
+        </p>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20 }}>
-        <Card title="Env Vars">
-          {Object.entries(data.envVars).map(([key, r]) => (
-            <div key={key} style={{ display: "flex", alignItems: "flex-start", marginBottom: 6, fontSize: 13 }}>
-              <Pill status={r.status} /> <span>{key} — {r.detail}</span>
-            </div>
-          ))}
-        </Card>
+        <div className="grid sm:grid-cols-2 gap-5">
+          <Card title="Env Vars">
+            {Object.entries(data.envVars).map(([key, r]) => (
+              <div key={key} className="flex items-start text-sm text-cream mb-1.5">
+                <Pill status={r.status} /> <span className="font-mono text-xs">{key} — {r.detail}</span>
+              </div>
+            ))}
+          </Card>
 
-        <Card title="Integration Health">
-          {Object.entries(data.integrationHealth).map(([key, r]) => (
-            <div key={key} style={{ display: "flex", alignItems: "flex-start", marginBottom: 8, fontSize: 14 }}>
-              <Pill status={r.status} />
-              <span><b style={{ textTransform: "capitalize" }}>{key}</b> — {r.detail}</span>
-            </div>
-          ))}
-        </Card>
+          <Card title="Integration Health">
+            {Object.entries(data.integrationHealth).map(([key, r]) => (
+              <div key={key} className="flex items-start text-sm text-cream mb-2">
+                <Pill status={r.status} />
+                <span><b className="capitalize">{key}</b> — {r.detail}</span>
+              </div>
+            ))}
+          </Card>
 
-        <Card title="Sales">
-          <div style={{ display: "flex", alignItems: "flex-start", marginBottom: 12, fontSize: 14 }}>
-            <Pill status={data.sales.status} /> <span>{data.sales.detail}</span>
-          </div>
-          <div style={{ fontSize: 13, color: "#A89880", marginBottom: 6 }}>Recent (live, last 30 days)</div>
-          {data.sales.live.recent.length === 0 && (
-            <div style={{ fontSize: 13, color: "#666" }}>No sales in this window.</div>
-          )}
-          {data.sales.live.recent.map((s) => (
-            <div key={s.date + s.email} style={{ display: "flex", justifyContent: "space-between", fontSize: 13, padding: "4px 0", borderBottom: "1px solid #2A2A2A" }}>
-              <span style={{ color: "#F5EDD8" }}>{s.email}</span>
-              <span style={{ color: "#D4AF77", fontFamily: "'DM Mono', monospace" }}>${(s.amountCents / 100).toFixed(2)}</span>
-              <span style={{ color: "#666" }}>{new Date(s.date).toLocaleDateString()}</span>
+          <Card title="Sales">
+            <div className="flex items-start text-sm text-cream mb-4">
+              <Pill status={data.sales.status} /> <span>{data.sales.detail}</span>
             </div>
-          ))}
-          <div style={{ fontSize: 12, color: "#666", marginTop: 10 }}>
-            {data.sales.legacy.count} legacy (pre-relaunch) purchase(s) on record — imported, not live.
-          </div>
-        </Card>
+            <div className="text-xs text-mist mb-2 uppercase tracking-wide">Recent (live, last 30 days)</div>
+            {data.sales.live.recent.length === 0 && (
+              <div className="text-sm text-mist/60">No sales in this window.</div>
+            )}
+            {data.sales.live.recent.map((s) => (
+              <div key={s.date + s.email} className="flex justify-between text-sm py-1.5 border-b border-studio-border/60">
+                <span className="text-cream truncate pr-2">{s.email}</span>
+                <span className="text-gold font-mono shrink-0">${(s.amountCents / 100).toFixed(2)}</span>
+                <span className="text-mist/60 shrink-0 pl-2">{new Date(s.date).toLocaleDateString()}</span>
+              </div>
+            ))}
+            <div className="text-xs text-mist/60 mt-3">
+              {data.sales.legacy.count} legacy (pre-relaunch) purchase(s) on record — imported, not live.
+            </div>
+          </Card>
+        </div>
       </div>
     </div>
   )
