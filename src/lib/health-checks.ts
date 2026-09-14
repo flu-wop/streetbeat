@@ -81,7 +81,20 @@ export async function checkMetaPixel(): Promise<CheckResult> {
   if (!pixelId || !token) return { status: "error", detail: "Pixel ID or CAPI token not set" }
   try {
     const res = await fetch(`https://graph.facebook.com/v20.0/${pixelId}?fields=id,name&access_token=${token}`)
-    if (!res.ok) return { status: "error", detail: `Graph API rejected pixel/token pair (${res.status})` }
+    if (!res.ok) {
+      // Surface Meta's actual error message/code instead of just the HTTP
+      // status — "Invalid OAuth access token", "Unsupported get request"
+      // (wrong pixel ID), and "permission" errors all need different fixes,
+      // and a bare "(400)" doesn't tell you which one you're looking at.
+      let reason = `HTTP ${res.status}`
+      try {
+        const body = await res.json()
+        if (body?.error?.message) reason = body.error.message
+      } catch {
+        // response wasn't JSON — keep the bare status
+      }
+      return { status: "error", detail: `Graph API rejected pixel/token pair: ${reason}` }
+    }
     const data = await res.json()
     return { status: "ok", detail: `Connected to "${data.name ?? pixelId}"` }
   } catch (err) {
