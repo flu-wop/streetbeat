@@ -1,6 +1,7 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
 import Script from "next/script";
+import "@flu-wop/design-system/styles.css";
 import "./globals.css";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" data-theme="studio">
       <head>
         {/* Meta Pixel — PageView on every load. ViewContent/InitiateCheckout
             fire from WatchPaywall.tsx; Purchase is server-side via

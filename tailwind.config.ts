@@ -2,32 +2,18 @@ import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
 
 const config: Config = {
+  // Brand colours, fonts and semantic tokens come from the shared IN-FLU-ENTIAL preset.
+  presets: [require("@flu-wop/design-system/tailwind-preset")],
   darkMode: ["class"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@flu-wop/design-system/src/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
       // ── Exact same palette as Mid City Sound ──────────────────────────
-      colors: {
-        studio: {
-          black:   "#090909",
-          charcoal:"#111111",
-          dark:    "#1A1A1A",
-          card:    "#1C1C1C",
-          border:  "#2A2A2A",
-        },
-        gold: {
-          light:   "#E8C97A",
-          DEFAULT: "#D4AF77",
-          dark:    "#B8935A",
-          muted:   "#9A7B50",
-        },
-        cream: "#F5EDD8",
-        mist:  "#A89880",
-      },
       fontFamily: {
         sans:    ["var(--font-sans)", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "Georgia", "serif"],
