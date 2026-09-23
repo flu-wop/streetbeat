@@ -10,7 +10,7 @@ import Image          from "next/image"
 import {
   CheckCircle2, Clock, ShieldCheck, Sparkles,
 } from "lucide-react"
-import { Badge }     from "@/components/ui/badge"
+import { Badge } from "@flu-wop/design-system"
 import { Separator } from "@/components/ui/separator"
 import { verifyAccessToken, ACCESS_COOKIE } from "@/lib/access"
 import WatchPaywall from "./WatchPaywall"

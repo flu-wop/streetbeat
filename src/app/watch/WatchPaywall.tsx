@@ -10,7 +10,7 @@ import Image         from "next/image"
 import {
   Lock, ShieldCheck, Monitor, ShoppingCart, Mail,
 } from "lucide-react"
-import { Button }    from "@/components/ui/button"
+import { Button } from "@flu-wop/design-system"
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void }

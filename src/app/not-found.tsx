@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Button } from "@flu-wop/design-system"
 import { Film } from "lucide-react"
 export default function NotFound() {
   return (

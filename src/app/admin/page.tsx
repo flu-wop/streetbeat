@@ -2,7 +2,7 @@
 "use client"
 import { useState, useEffect, useCallback } from "react"
 import { Lock, RefreshCw } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@flu-wop/design-system"
 import { Input } from "@/components/ui/input"
 
 type CheckResult = { status: "ok" | "warn" | "error"; detail: string }

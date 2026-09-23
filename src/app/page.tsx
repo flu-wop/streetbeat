@@ -14,8 +14,7 @@ import {
   MapPin, ChevronDown, Award,
   ShoppingCart, Shield, Monitor, Captions, CheckCircle2,
 } from "lucide-react"
-import { Button }    from "@/components/ui/button"
-import { Badge }     from "@/components/ui/badge"
+import { Button, Badge } from "@flu-wop/design-system"
 import { Separator } from "@/components/ui/separator"
 import PurchaseButton from "./PurchaseButton"
 import { verifyAccessToken, ACCESS_COOKIE } from "@/lib/access"
