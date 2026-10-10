@@ -1,8 +1,10 @@
 // src/lib/purchase-email.ts
 // Sends purchase confirmation emails via Resend after a verified Stripe
 // payment: one receipt to the customer, one notification to the studio.
-// Called from /api/verify-purchase — see idempotency guard there (this file
-// doesn't dedupe on its own, since Streetbeat has no database).
+// Called from both /api/verify-purchase (buyer returns from Stripe) and
+// /api/stripe/webhook (backstop for buyers who never return). Each send uses
+// a Resend idempotency key derived from the Stripe session id, so whichever
+// path runs second within 24h is a no-op and the buyer gets one receipt.
 
 import { Resend } from "resend"
 import { signAccessToken } from "@/lib/access"
@@ -63,18 +65,30 @@ export async function sendPurchaseEmails(purchase: PurchasePayload) {
   const from = process.env.RESEND_FROM_EMAIL ?? "orders@midcitysound.com"
   const to   = process.env.RESEND_TO_EMAIL   ?? "midcitysound1@gmail.com"
 
-  await Promise.allSettled([
-    resend.emails.send({
-      from,
-      to:      purchase.customerEmail,
-      subject: "Your Street Beat purchase — lifetime access",
-      html:    customerHtml(purchase),
-    }),
-    resend.emails.send({
-      from,
-      to:      to,
-      subject: `New Street Beat sale — $${(purchase.amount / 100).toFixed(2)}`,
-      html:    internalHtml(purchase),
-    }),
+  const [receipt] = await Promise.allSettled([
+    resend.emails.send(
+      {
+        from,
+        to:      purchase.customerEmail,
+        subject: "Your Street Beat purchase — lifetime access",
+        html:    customerHtml(purchase),
+      },
+      { idempotencyKey: `streetbeat-receipt/${purchase.sessionId}` },
+    ),
+    resend.emails.send(
+      {
+        from,
+        to:      to,
+        subject: `New Street Beat sale — $${(purchase.amount / 100).toFixed(2)}`,
+        html:    internalHtml(purchase),
+      },
+      { idempotencyKey: `streetbeat-sale/${purchase.sessionId}` },
+    ),
   ])
+
+  // The customer receipt carries the access link, so a failure there must
+  // surface (the webhook returns 500 and Stripe retries). The internal
+  // notification is best-effort.
+  if (receipt.status === "rejected") throw receipt.reason
+  if (receipt.value.error) throw new Error(`Resend: ${receipt.value.error.message}`)
 }

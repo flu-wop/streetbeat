@@ -1,8 +1,8 @@
 // src/lib/health-checks.ts
-// Backing checks for /admin/system. Streetbeat has no webhook (verification
-// happens via redirect in /api/verify-purchase, not a Stripe webhook), so
-// "Integration Health" checks that each provider's API is actually reachable
-// rather than checking for a registered webhook endpoint. Sales pulls live
+// Backing checks for /admin/system. Access is granted on the redirect through
+// /api/verify-purchase; /api/stripe/webhook is the backstop that emails buyers
+// who never come back. "Integration Health" checks that each provider's API is
+// actually reachable. Sales pulls live
 // data straight from Stripe (there's no purchases table for current sales)
 // plus the historical count from the legacy_purchases table.
 
@@ -19,6 +19,7 @@ function getStripe() {
 /* ─── 1. Env Var Status ─────────────────────────────────────────────────── */
 const REQUIRED_ENV_VARS = [
   "STRIPE_SECRET_KEY",
+  "STRIPE_WEBHOOK_SECRET",
   "RESEND_API_KEY",
   "RESEND_FROM_EMAIL",
   "RESEND_TO_EMAIL",
