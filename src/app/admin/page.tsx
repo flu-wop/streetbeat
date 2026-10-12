@@ -4,6 +4,7 @@
 import Link from "next/link"
 
 const PAGES = [
+  { href: "/admin/insights", title: "Insights", desc: "Sales, visitors, top pages and the buying funnel." },
   { href: "/admin/system", title: "System", desc: "Env vars, integration health, API usage, sales." },
 ]
 

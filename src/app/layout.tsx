@@ -4,6 +4,7 @@ import Script from "next/script";
 import "@flu-wop/design-system/styles.css";
 import "./globals.css";
 import { SiteChrome } from "@/components/layout/SiteChrome";
+import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
 
 export const metadata: Metadata = {
   title: {
@@ -103,6 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-studio-black text-cream antialiased">
         <SiteChrome>{children}</SiteChrome>
+        <SiteAnalytics />
       </body>
     </html>
   );

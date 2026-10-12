@@ -11,6 +11,7 @@ import {
   Lock, ShieldCheck, Monitor, ShoppingCart, Mail,
 } from "lucide-react"
 import { Button } from "@flu-wop/design-system"
+import { beacon } from "@/lib/beacon"
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void }
@@ -63,6 +64,7 @@ export default function WatchPaywall() {
   async function handlePurchase() {
     setLoading(true)
     setError(null)
+    beacon("checkout_click")
     try {
       const res = await fetch("/api/checkout", { method: "POST" })
       const data = await res.json()

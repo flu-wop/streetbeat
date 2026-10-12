@@ -7,6 +7,7 @@
 
 import { useState } from "react"
 import { ShoppingCart, Loader2 } from "lucide-react"
+import { beacon } from "@/lib/beacon"
 
 export default function PurchaseButton({ className }: { className?: string }) {
   const [loading, setLoading] = useState(false)
@@ -14,6 +15,7 @@ export default function PurchaseButton({ className }: { className?: string }) {
   async function handleClick() {
     if (loading) return
     setLoading(true)
+    beacon("checkout_click")
     try {
       const res = await fetch("/api/checkout", { method: "POST" })
       const data = await res.json()
