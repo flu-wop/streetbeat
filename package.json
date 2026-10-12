@@ -9,7 +9,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@flu-wop/design-system": "github:flu-wop/design-system#v0.2.0",
+    "@flu-wop/design-system": "github:flu-wop/design-system#071e32eaaba5acb6a407996ea9faf0b78b9d7293",
     "@libsql/client": "^0.17.4",
     "@radix-ui/react-dialog": "^1.1.4",
     "@radix-ui/react-label": "^2.1.1",
