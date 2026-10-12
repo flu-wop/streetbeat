@@ -177,3 +177,62 @@ export async function checkSales(): Promise<SalesResult> {
 
   return { status, detail, live, legacy: { count: legacyCount } }
 }
+
+/* ─── 4. API Usage — read-only, pulled live from each provider ──────────── */
+export type UsageRow = CheckResult & { label: string }
+
+const THIRTY_DAYS_S = 30 * 24 * 60 * 60
+
+export async function checkApiUsage(): Promise<UsageRow[]> {
+  const rows: UsageRow[] = []
+
+  // Stripe — checkout sessions created in the last 30 days
+  try {
+    const sessions = await getStripe().checkout.sessions.list({
+      limit: 100,
+      created: { gte: Math.floor(Date.now() / 1000) - THIRTY_DAYS_S },
+    })
+    const paid = sessions.data.filter((s) => s.payment_status === "paid").length
+    const count = `${sessions.data.length}${sessions.has_more ? "+" : ""}`
+    rows.push({ label: "Stripe", status: "ok", detail: `${count} checkout session(s), ${paid} paid` })
+  } catch (err) {
+    rows.push({ label: "Stripe", status: "error", detail: (err as Error).message })
+  }
+
+  // Resend — emails sent in the last 30 days (newest 100)
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY!)
+    const res: any = await resend.emails.list({ limit: 100 })
+    const items: any[] = res.data?.data ?? []
+    const cutoff = Date.now() - THIRTY_DAYS_S * 1000
+    const recent = items.filter((e) => new Date(e.created_at).getTime() >= cutoff)
+    const capped = !!res.data?.has_more && recent.length === items.length
+    const failed = recent.filter((e) => ["bounced", "complained", "failed"].includes(e.last_event)).length
+    rows.push({
+      label: "Resend",
+      status: failed > 0 ? "warn" : "ok",
+      detail: `${recent.length}${capped ? "+" : ""} email(s) sent${failed ? `, ${failed} bounced/failed` : ""}`,
+    })
+  } catch (err) {
+    rows.push({ label: "Resend", status: "error", detail: (err as Error).message })
+  }
+
+  // Turso — row counts per table
+  try {
+    const db = getDB()
+    const tables = await db.execute(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_litestream%'"
+    )
+    const parts: string[] = []
+    for (const t of tables.rows) {
+      const name = String(t.name).replace(/[^a-zA-Z0-9_]/g, "")
+      const c = await db.execute(`SELECT COUNT(*) AS c FROM "${name}"`)
+      parts.push(`${name} ${Number(c.rows[0]?.c ?? 0)}`)
+    }
+    rows.push({ label: "Turso", status: "ok", detail: parts.length ? `rows: ${parts.join(", ")}` : "no tables" })
+  } catch (err) {
+    rows.push({ label: "Turso", status: "error", detail: (err as Error).message })
+  }
+
+  return rows
+}

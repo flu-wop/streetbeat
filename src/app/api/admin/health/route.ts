@@ -7,7 +7,7 @@
 
 import { NextRequest, NextResponse } from "next/server"
 import {
-  checkEnvVars, checkStripe, checkResend, checkTurso, checkMetaPixel, checkSales,
+  checkEnvVars, checkStripe, checkResend, checkTurso, checkMetaPixel, checkSales, checkApiUsage,
 } from "@/lib/health-checks"
 
 export async function GET(req: NextRequest) {
@@ -16,19 +16,21 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const [envVars, stripe, resend, turso, metaPixel, sales] = await Promise.all([
+  const [envVars, stripe, resend, turso, metaPixel, sales, apiUsage] = await Promise.all([
     Promise.resolve(checkEnvVars()),
     checkStripe(),
     checkResend(),
     checkTurso(),
     checkMetaPixel(),
     checkSales(),
+    checkApiUsage(),
   ])
 
   return NextResponse.json({
     envVars,
     integrationHealth: { stripe, resend, turso, metaPixel },
     sales,
+    apiUsage,
     checkedAt: new Date().toISOString(),
   })
 }
