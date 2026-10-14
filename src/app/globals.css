@@ -93,3 +93,7 @@
 /* Badges here inherit the body line-height (1.65) and use a softer 60% gold outline */
 .if-badge { line-height: 1.65; }
 .if-badge--outline { border-color: color-mix(in srgb, var(--if-gold) 60%, transparent); }
+
+/* Hide scrollbars on horizontally scrolling admin tab rows */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

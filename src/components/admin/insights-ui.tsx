@@ -12,7 +12,7 @@ export function longDate(d: string) {
 
 export function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-studio-card border border-studio-border rounded-sm p-6">
+    <div className="bg-studio-card border border-studio-border p-6">
       <h3 className="font-display text-xl text-gold mb-4">{title}</h3>
       {children}
     </div>
@@ -29,7 +29,7 @@ function Delta({ cur, prev }: { cur: number; prev: number }) {
 
 export function Stat({ label, value, cur, prev }: { label: string; value: string; cur: number; prev: number }) {
   return (
-    <div className="bg-studio-card border border-studio-border rounded-sm p-5">
+    <div className="bg-studio-card border border-studio-border p-5">
       <div className="text-xs text-mist uppercase tracking-wide mb-1">{label}</div>
       <div className="font-display text-3xl text-cream mb-1">{value}</div>
       <Delta cur={cur} prev={prev} />
@@ -46,7 +46,7 @@ export function Bars({ rows, format }: { rows: { date: string; value: number }[]
           <div
             key={r.date}
             title={`${longDate(r.date)}: ${format(r.value)}`}
-            className="flex-1 bg-gold/70 hover:bg-gold rounded-t-[1px] min-w-[2px]"
+            className="flex-1 bg-gold/70 hover:bg-gold min-w-[2px]"
             style={{ height: `${Math.max(2, (r.value / max) * 100)}%` }}
           />
         ))}
@@ -65,7 +65,7 @@ export function Overview({ data }: { data: Insights }) {
       {data.attention.length > 0 && (
         <div className="grid sm:grid-cols-3 gap-3">
           {data.attention.map((a) => (
-            <div key={a.label} className={`border rounded-sm px-4 py-3 text-sm ${a.tone === "alert" && a.value > 0 ? "border-red-400/50 text-red-300" : "border-studio-border text-mist"}`}>
+            <div key={a.label} className={`border px-4 py-3 text-sm ${a.tone === "alert" && a.value > 0 ? "border-red-400/50 text-red-300" : "border-studio-border text-mist"}`}>
               <b className="text-cream">{num(a.value)}</b> {a.label}
             </div>
           ))}
@@ -143,7 +143,7 @@ export function FunnelTab({ data }: { data: Insights }) {
                   <span className="text-cream">{s.label}</span>
                   <span className="text-mist">{num(s.value)}{i > 0 && f.steps[i - 1].value ? ` · ${Math.round((s.value / f.steps[i - 1].value) * 100)}% of previous` : ""}</span>
                 </div>
-                <div className="h-2 bg-studio-border/60 rounded-sm"><div className="h-2 bg-gold rounded-sm" style={{ width: `${(s.value / top) * 100}%` }} /></div>
+                <div className="h-2 bg-studio-border/60"><div className="h-2 bg-gold" style={{ width: `${(s.value / top) * 100}%` }} /></div>
               </div>
             ))}
             {sales && <div className="text-xs text-mist mt-4">Completed purchases in this range: <b className="text-cream">{num(sales.total)}</b> (from Stripe, counted separately from visitor tracking).</div>}

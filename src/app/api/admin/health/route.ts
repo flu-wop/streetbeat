@@ -6,13 +6,15 @@
 // independently rotatable without touching customer access at all.
 
 import { NextRequest, NextResponse } from "next/server"
+import { isAdmin } from "@/lib/admin-auth"
 import {
   checkEnvVars, checkStripe, checkResend, checkTurso, checkMetaPixel, checkSales, checkApiUsage,
 } from "@/lib/health-checks"
 
 export async function GET(req: NextRequest) {
   const auth = req.headers.get("authorization")
-  if (auth !== `Bearer ${process.env.ADMIN_ACCESS_SECRET}`) {
+  const bearerOk = !!process.env.ADMIN_ACCESS_SECRET && auth === `Bearer ${process.env.ADMIN_ACCESS_SECRET}`
+  if (!bearerOk && !(await isAdmin())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
