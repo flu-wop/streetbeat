@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { Lock, RefreshCw } from "lucide-react"
 import { Button } from "@flu-wop/design-system"
+import { AdminPage, AdminPageHeader } from "@/components/admin/page-frame"
 import { Input } from "@/components/ui/input"
 
 type CheckResult = { status: "ok" | "warn" | "error"; detail: string }
@@ -28,7 +29,7 @@ function Pill({ status }: { status: "ok" | "warn" | "error" }) {
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-studio-card border border-studio-border rounded-sm p-6">
+    <div className="bg-studio-card border border-studio-border p-6">
       <h3 className="font-display text-xl text-gold mb-4">{title}</h3>
       {children}
     </div>
@@ -44,13 +45,16 @@ export default function SystemDashboard() {
 
   const fetchHealth = useCallback(async (pw: string) => {
     setLoading(true)
-    const res = await fetch("/api/admin/health", { headers: { Authorization: `Bearer ${pw}` } })
+    // Signed in via /admin/login the cookie is enough; the secret is only a fallback.
+    const res = await fetch("/api/admin/health", pw ? { headers: { Authorization: `Bearer ${pw}` } } : undefined)
     setLoading(false)
-    if (!res.ok) { setError("Wrong secret or check failed."); return }
+    if (!res.ok) { if (pw) setError("Wrong secret or check failed."); return }
     setData(await res.json())
     setAuthed(true)
     setError("")
   }, [])
+
+  useEffect(() => { fetchHealth("") }, [fetchHealth])
 
   useEffect(() => {
     if (!authed) return
@@ -89,24 +93,17 @@ export default function SystemDashboard() {
   if (!data) return null
 
   return (
-    <div className="min-h-screen bg-studio-black px-6 sm:px-10 py-12">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-1">
-          <div>
-            <a href="/admin" className="text-mist text-xs hover:text-gold transition-colors">&larr; Admin home</a>
-            <h1 className="font-display text-3xl text-cream">System Health</h1>
-          </div>
-          <button
-            onClick={() => fetchHealth(password)}
-            className="text-mist hover:text-gold transition-colors"
-            aria-label="Refresh now"
-          >
+    <AdminPage>
+      <AdminPageHeader
+        eyebrow="Health"
+        title="System"
+        description={`Last checked ${new Date(data.checkedAt).toLocaleTimeString()}, refreshes every 60s`}
+        actions={
+          <button onClick={() => fetchHealth(password)} className="text-mist hover:text-gold transition-colors p-2" aria-label="Refresh now">
             <RefreshCw className="w-4 h-4" />
           </button>
-        </div>
-        <p className="text-mist text-xs mb-8">
-          Last checked {new Date(data.checkedAt).toLocaleTimeString()} — refreshes every 60s
-        </p>
+        }
+      />
 
         <div className="grid sm:grid-cols-2 gap-5">
           <Card title="Env Vars">
@@ -155,7 +152,6 @@ export default function SystemDashboard() {
             </div>
           </Card>
         </div>
-      </div>
-    </div>
+    </AdminPage>
   )
 }

@@ -7,6 +7,7 @@ import { isAdmin } from "@/lib/admin-auth"
 import { getDB } from "@/lib/db"
 import { getInsights } from "@/lib/insights/core"
 import { insightsConfig } from "@/lib/insights/config"
+import { AdminPage, AdminPageHeader } from "@/components/admin/page-frame"
 import { RangePicker } from "@/components/admin/RangePicker"
 import { Overview, PagesTab, FunnelTab, longDate } from "@/components/admin/insights-ui"
 import type { Insights } from "@/lib/insights/types"
@@ -33,43 +34,44 @@ export default async function InsightsPage({ searchParams }: { searchParams: Pro
 
   const keep = days === 30 ? "" : `&days=${days}`
 
-  return (
-    <div className="min-h-screen bg-studio-black px-6 sm:px-10 py-12">
-      <div className="max-w-5xl mx-auto">
-        <Link href="/admin" className="text-mist text-xs hover:text-gold transition-colors">&larr; Admin home</Link>
-        <div className="flex items-end justify-between gap-4 flex-wrap mt-1 mb-6">
-          <div>
-            <h1 className="font-display text-3xl text-cream">Insights</h1>
-            <p className="text-mist text-xs mt-1">{data ? `${longDate(data.range.start)} – ${longDate(data.range.end)}` : "How the film is doing"}</p>
-          </div>
-          <RangePicker days={days} />
-        </div>
+  const note = "mb-4 text-xs text-mist bg-studio-card border border-studio-border px-4 py-3 leading-relaxed"
 
-        <nav className="flex gap-1 mb-6 border-b border-studio-border" aria-label="Insights tabs">
+  return (
+    <AdminPage>
+      <AdminPageHeader
+        eyebrow="The film"
+        title="Insights"
+        description={data ? `${longDate(data.range.start)} – ${longDate(data.range.end)}` : "How the film is doing"}
+        actions={<RangePicker days={days} />}
+      />
+
+      <div className="-mx-4 sm:mx-0 mb-6 border-b border-studio-border">
+        <nav aria-label="Insights tabs" className="flex gap-5 sm:gap-7 overflow-x-auto no-scrollbar px-4 sm:px-0">
           {TABS.map((t) => (
             <Link
               key={t.id}
               href={`/admin/insights?tab=${t.id}${keep}`}
               aria-current={tab === t.id ? "page" : undefined}
-              className={`px-4 py-2 text-sm -mb-px border-b-2 ${tab === t.id ? "border-gold text-gold" : "border-transparent text-mist hover:text-cream"}`}
+              className={`relative pb-3 pt-1 text-sm whitespace-nowrap shrink-0 transition-colors ${tab === t.id ? "text-cream" : "text-mist hover:text-cream"}`}
             >
               {t.label}
+              {tab === t.id && <span className="absolute left-0 right-0 -bottom-px h-0.5 bg-gold" />}
             </Link>
           ))}
         </nav>
-
-        {failed && <p className="text-red-300 text-sm mb-4">Couldn&apos;t reach the database. Refresh in a moment.</p>}
-        {data && !data.trackingSince && (
-          <p className="text-mist text-sm mb-4">Visitor tracking is live. Sales are complete; visitors and page times start counting from today.</p>
-        )}
-        {data?.trackingSince && data.trackingSince.slice(0, 10) > data.range.start && (
-          <p className="text-mist text-sm mb-4">Visitor numbers start {longDate(data.trackingSince.slice(0, 10))}, when tracking went live. Sales cover the full range.</p>
-        )}
-
-        {data && tab === "overview" && <Overview data={data} />}
-        {data && tab === "pages" && <PagesTab data={data} />}
-        {data && tab === "funnel" && <FunnelTab data={data} />}
       </div>
-    </div>
+
+      {failed && <p className="mb-4 text-sm text-red-300 border border-red-400/30 bg-red-400/5 px-4 py-3">Couldn&apos;t reach the database. Refresh in a moment.</p>}
+      {data && !data.trackingSince && (
+        <p className={note}>Visitor tracking is live. Sales are complete; visitors and page times start counting from today.</p>
+      )}
+      {data?.trackingSince && data.trackingSince.slice(0, 10) > data.range.start && (
+        <p className={note}>Visitor numbers start {longDate(data.trackingSince.slice(0, 10))}, when tracking went live. Sales cover the full range.</p>
+      )}
+
+      {data && tab === "overview" && <Overview data={data} />}
+      {data && tab === "pages" && <PagesTab data={data} />}
+      {data && tab === "funnel" && <FunnelTab data={data} />}
+    </AdminPage>
   )
 }
