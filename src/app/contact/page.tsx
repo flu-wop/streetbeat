@@ -23,8 +23,8 @@ export default function ContactPage() {
   }
   return (
     <div className="pt-16 min-h-screen bg-studio-black">
-      <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-studio-border/40 bg-studio-charcoal">
-        <div className="mx-auto max-w-4xl text-center sm:text-left">
+      <section className="py-16 sm:py-20 px-6 border-b border-studio-border/40 bg-studio-charcoal">
+        <div className="mx-auto max-w-6xl text-center sm:text-left">
           <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">Contact</Badge>
           <h1 className="font-display text-5xl md:text-6xl text-cream mb-4 leading-tight">Get in Touch</h1>
           <p className="text-mist text-sm max-w-md leading-relaxed">
@@ -32,8 +32,8 @@ export default function ContactPage() {
           </p>
         </div>
       </section>
-      <section className="py-12 sm:py-16 px-4 sm:px-6">
-        <div className="mx-auto max-w-4xl grid md:grid-cols-[260px_1fr] gap-14">
+      <section className="py-12 sm:py-16 px-6">
+        <div className="mx-auto max-w-6xl grid md:grid-cols-[260px_1fr] gap-14">
           <div className="space-y-6">
             <div>
               <p className="text-[10px] tracking-widest uppercase text-gold/60 mb-2">Email</p>

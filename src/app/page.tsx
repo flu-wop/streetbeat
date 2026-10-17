@@ -178,7 +178,7 @@ export default async function HomePage() {
       {/* 3. TRAILER EMBED                                                 */}
       {/* ════════════════════════════════════════════════════════════════ */}
       <section id="trailer" className="py-20 px-6 bg-studio-black">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <div className="text-center mb-10">
             <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">
               Official Trailer
@@ -225,7 +225,7 @@ export default async function HomePage() {
       {/* 4. SYNOPSIS + CREDITS + MCS CROSSLINK (merged)                   */}
       {/* ════════════════════════════════════════════════════════════════ */}
       <section className="border-t border-studio-border/40 bg-studio-charcoal">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="mx-auto max-w-6xl px-6">
 
           {/* Synopsis + Credits */}
           <div className="py-16 sm:py-20 grid md:grid-cols-[1fr_300px] gap-10 md:gap-14 items-start">

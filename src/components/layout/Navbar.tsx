@@ -20,7 +20,7 @@ export function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-studio-border/60 bg-studio-black/90 backdrop-blur-md transition-all duration-300">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 flex items-center justify-between h-16">
+      <div className="mx-auto max-w-6xl px-6 flex items-center justify-between h-16">
 
         {/* ── Favicon + wordmark ── */}
         <Link href="/" onClick={() => setOpen(false)} className="group flex items-center gap-2.5 shrink-0">

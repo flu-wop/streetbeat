@@ -43,8 +43,8 @@ export default function AboutPage() {
     <div className="pt-16 min-h-screen bg-studio-black">
 
       {/* ── Page header ── */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-studio-border/40 bg-studio-charcoal">
-        <div className="mx-auto max-w-4xl text-center sm:text-left">
+      <section className="py-16 sm:py-20 px-6 border-b border-studio-border/40 bg-studio-charcoal">
+        <div className="mx-auto max-w-6xl text-center sm:text-left">
           <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">About the Film</Badge>
           <h1 className="font-display text-5xl md:text-6xl text-cream mb-4 leading-tight">
             The Sound Behind the Film
@@ -57,8 +57,8 @@ export default function AboutPage() {
       </section>
 
       {/* ── Facts strip ── */}
-      <section className="py-10 px-4 sm:px-6 border-b border-studio-border/40">
-        <div className="mx-auto max-w-4xl">
+      <section className="py-10 px-6 border-b border-studio-border/40">
+        <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {FACTS.map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex flex-col items-center sm:items-start text-center sm:text-left p-4 border border-studio-border rounded-sm bg-studio-card gap-2">
@@ -74,7 +74,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Drummer photo grid — 16 slots ── */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6 border-b border-studio-border/40">
+      <section className="py-14 sm:py-20 px-6 border-b border-studio-border/40">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10">
             <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">
@@ -107,8 +107,8 @@ export default function AboutPage() {
       </section>
 
       {/* ── Origin story ── */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6">
-        <div className="mx-auto max-w-4xl">
+      <section className="py-14 sm:py-20 px-6">
+        <div className="mx-auto max-w-6xl">
           <div className="space-y-5">
             <div className="flex items-center gap-2.5">
               <Film className="w-4 h-4 text-gold/60" />

@@ -36,7 +36,7 @@ export default async function WatchPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-studio-charcoal to-transparent" />
         </div>
 
-        <div className="relative mx-auto max-w-4xl text-center sm:text-left">
+        <div className="relative mx-auto max-w-6xl text-center sm:text-left">
           <Badge variant="outline" className="mb-4 text-[10px] tracking-widest uppercase">Watch Now</Badge>
           <h1 className="font-display text-5xl md:text-6xl text-cream mb-3 leading-tight">
             Street Beat
