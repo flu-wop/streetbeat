@@ -5,7 +5,7 @@ export function BuiltBySignature() {
       <p className="text-center text-[11px] tracking-[0.15em] font-mono text-mist">
         Designed by{" "}
         <a
-          href="https://in-flu-ential.vercel.app"
+          href="https://influential.live"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gold hover:text-gold-light transition-colors duration-200"
